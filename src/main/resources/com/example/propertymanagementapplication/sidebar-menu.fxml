@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertymanagementapplication.SidebarMenuController">
+   <children>
+      <VBox fx:id="sideNavigationBar" prefHeight="200.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: white;">
+         <children>
+            <MFXButton fx:id="homeButton" onAction="#onHomeButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Home">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="reportButton" onAction="#onReportButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Report">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="archiveButton" onAction="#onArchiveButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Archive">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="settingsButton" onAction="#onSettingsButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Settings">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="350.0" />
+               </VBox.margin>
+            </MFXButton>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="25.0" top="120.0" />
+         </padding>
+      </VBox>
+      <AnchorPane fx:id="currentPage" prefHeight="200.0" prefWidth="1080.0" />
+   </children>
+</HBox>
