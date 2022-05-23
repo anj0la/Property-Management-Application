@@ -1,7 +1,5 @@
 # Property Management Application
 
-### Currently a work in progress
-
 A property management app using JavaFX intended to be used on a desktop. 
 
 For each property that is being managed, one will be able to modify the monthly rent, track expenses, 
