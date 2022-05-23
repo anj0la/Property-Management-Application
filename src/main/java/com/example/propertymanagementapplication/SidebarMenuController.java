@@ -1,10 +1,8 @@
 package com.example.propertymanagementapplication;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -49,20 +47,26 @@ public class SidebarMenuController {
     } // onHomeButtonClick
 
     @FXML
-    protected void onReportButtonClick() {
+    protected void onReportButtonClick() throws IOException {
         enableAllButtons();
+        changeCurrentPage("report-page.fxml");
+        reportButton.setDisable(true);
         System.out.println("The report button was clicked!");
     } // onReportButtonClick
 
     @FXML
-    protected void onArchiveButtonClick() {
+    protected void onArchiveButtonClick() throws IOException {
         enableAllButtons();
+        changeCurrentPage("archive-page.fxml");
+        archiveButton.setDisable(true);
         System.out.println("The archive button was clicked!");
     } // onArchiveButtonClick
 
     @FXML
-    protected void onSettingsButtonClick() {
+    protected void onSettingsButtonClick() throws IOException {
         enableAllButtons();
+        changeCurrentPage("settings-page.fxml");
+        settingsButton.setDisable(true);
         System.out.println("The settings button was clicked!");
     } // onSettingsButtonClick
 
