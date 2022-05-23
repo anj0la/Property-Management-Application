@@ -40,7 +40,7 @@ public class SidebarMenuController {
      * @throws IOException - thrown if the fxml is not found
      */
     @FXML
-    public void initializeApplication() throws IOException {
+    protected void initializeApplication() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home-page.fxml"));
         currentPage.getChildren().add(fxmlLoader.load());
         homeButton.setDisable(true);
