@@ -4,12 +4,14 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
@@ -60,10 +62,10 @@ public class HomePageController implements Initializable {
         expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyExpenses"));
         commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("commission"));
         paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("paymentToClient"));
-        testing();
+        addDummyClient();
     } // initialize
 
-    private void testing() {
+    private void addDummyClient() {
         Client aDummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
                 "101 Milky Road", 550.50, 199.99, 0.10,
                 550.50 * 0.9);
@@ -72,16 +74,29 @@ public class HomePageController implements Initializable {
         table.setItems(clients);
     }
 
-
     @FXML
     protected void showAddDialog() {
         System.out.println("You clicked on the add button!");
     } // showAddDialog
 
     @FXML
-    protected void showEditDialog() {
-        System.out.println("You clicked on the edit button!");
-    } // showEditDialog
+    protected void removeClient() {
+        // TODO - Add error checks for the function.
+        int selectedIndex = table.getSelectionModel().getSelectedIndex();
+        displayConfirmationDialog();
+        table.getItems().remove(selectedIndex);
+    } // removeClient
 
+    @FXML
+    protected void displayConfirmationDialog() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        String text = "Are you sure you would like to delete this entry?";
+        confirmationAlert.setTitle("Confirm");
+        confirmationAlert.setContentText(text);
+        Optional<ButtonType> answer = confirmationAlert.showAndWait();
+        if ((answer.isPresent()) && (answer.get()) == ButtonType.OK) {
+            confirmationAlert.close();
+        }
+    }
 
 } // class

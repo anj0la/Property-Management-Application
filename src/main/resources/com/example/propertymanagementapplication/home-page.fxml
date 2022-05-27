@@ -26,7 +26,7 @@
                </image>
             </ImageView>
             <MFXButton fx:id="addButton" buttonType="RAISED" layoutX="724.0" layoutY="17.0" text="Add" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="16.0" />
-            <MFXButton fx:id="delButton" buttonType="RAISED" text="Del" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="16.0" />
+            <MFXButton fx:id="delButton" buttonType="RAISED" onAction="#removeClient" text="Del" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="16.0" />
             <Label layoutX="36.0" layoutY="58.0" text="Day, Month, 202X" textFill="#686868" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="64.0">
                <font>
                   <Font name="Roboto Bold" size="36.0" />
