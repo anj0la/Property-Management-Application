@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Client {
 
-    private Date currentDate;
+    private String dateJoined;
     private String clientName;
     private String tenantName;
     private String propertyAddress;
@@ -13,9 +13,9 @@ public class Client {
     private double commission;
     private double paymentToClient;
 
-    public Client(Date currentDate, String clientName, String tenantName, String propertyAddress, double rent,
+    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, double rent,
                   double expenses, double commission, double paymentToClient) {
-        this.currentDate = currentDate;
+        this.dateJoined = dateJoined;
         this.clientName = clientName;
         this.tenantName = tenantName;
         this.propertyAddress = propertyAddress;
@@ -25,13 +25,12 @@ public class Client {
         this.paymentToClient = paymentToClient;
     } // Constructor
 
-
-    public Date getCurrentDate() {
-        return currentDate;
+    public String getDateJoined() {
+        return dateJoined;
     }
 
-    public void setCurrentDate(Date currentDate) {
-        this.currentDate = currentDate;
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
     public String getClientName() {

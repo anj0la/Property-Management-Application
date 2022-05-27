@@ -1,16 +1,24 @@
 package com.example.propertymanagementapplication;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class HomePageController {
+public class HomePageController implements Initializable {
 
     @FXML
     private MFXButton addButton;
+
+    @FXML
+    private MFXButton delButton;
 
     @FXML
     private MFXButton editButton;
@@ -19,7 +27,7 @@ public class HomePageController {
     private TableView<Client> table;
 
     @FXML
-    private TableColumn<Client, Date> dateJoinedColumn;
+    private TableColumn<Client, String> dateJoinedColumn;
 
     @FXML
     private TableColumn<Client, String> clientNameColumn;
@@ -42,13 +50,28 @@ public class HomePageController {
     @FXML
     private TableColumn<Client, Double> paymentColumn;
 
-    /**
-     * Initializes the home page;
-     */
-    @FXML
-    protected void initializeHomePage() {
-        table.setEditable(false);
-    } // initializeHomePage
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
+        clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
+        tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("propertyAddress"));
+        rentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyRent"));
+        expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyExpenses"));
+        commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("commission"));
+        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("paymentToClient"));
+        testing();
+    } // initialize
+
+    private void testing() {
+        Client aDummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        ObservableList<Client> clients = table.getItems();
+        clients.add(aDummyClient);
+        table.setItems(clients);
+    }
+
 
     @FXML
     protected void showAddDialog() {
@@ -59,5 +82,6 @@ public class HomePageController {
     protected void showEditDialog() {
         System.out.println("You clicked on the edit button!");
     } // showEditDialog
+
 
 } // class
