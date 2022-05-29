@@ -62,17 +62,68 @@ public class HomePageController implements Initializable {
         expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyExpenses"));
         commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("commission"));
         paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("paymentToClient"));
-        addDummyClient();
+        addDummyClients();
     } // initialize
 
-    private void addDummyClient() {
+    /**
+     * METHOD TO BE DELETED ONCE DATABASE HAS BEEN IMPLEMENTATION, PURELY FOR TESTING PURPOSES.
+     */
+    private void addDummyClients() {
         Client aDummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a1DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a2DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a3DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a4DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a5DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a6DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a7DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a8DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a9DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a10DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a11DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a12DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a13DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a14DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
+                "101 Milky Road", 550.50, 199.99, 0.10,
+                550.50 * 0.9);
+        Client a15DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
                 "101 Milky Road", 550.50, 199.99, 0.10,
                 550.50 * 0.9);
         ObservableList<Client> clients = table.getItems();
         clients.add(aDummyClient);
+        clients.addAll(a1DummyClient, a2DummyClient, a3DummyClient, a4DummyClient, a5DummyClient, a6DummyClient,
+                a7DummyClient, a8DummyClient, a9DummyClient, a10DummyClient, a11DummyClient, a12DummyClient,
+                a13DummyClient, a14DummyClient, a15DummyClient);
         table.setItems(clients);
-    }
+    } // addDummyClients
 
     @FXML
     protected void showAddDialog() {
