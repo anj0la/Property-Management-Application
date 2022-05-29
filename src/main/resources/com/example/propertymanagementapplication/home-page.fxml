@@ -18,7 +18,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="820.0">
          <children>
-            <TableView fx:id="table" prefHeight="550.0" prefWidth="700.0" stylesheets="@../../../table.css" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
+            <TableView fx:id="table" prefHeight="550.0" prefWidth="700.0" stylesheets="@../../../stylesheets/table.css" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
               <columns>
                 <TableColumn fx:id="dateJoinedColumn" prefWidth="87.5" text="Date Joined" />
                 <TableColumn fx:id="clientNameColumn" prefWidth="87.5" text="Client" />
