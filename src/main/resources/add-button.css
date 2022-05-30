@@ -1,0 +1,18 @@
+.button {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 15;
+    -fx-background-color: #F3F1F5;
+    -fx-effect: dropshadow(gaussian, darkgrey, 10, 0.1, 0.0, 5.0);
+    -fx-background-image: url("plus-sign.png");
+}
+.button:hover {
+    -fx-background-color: lightgrey;
+}
+.button:focused {
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 2;
+}
+.button:armed {
+    -fx-background-color: #e3e3e3;
+}

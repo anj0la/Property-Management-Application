@@ -2,13 +2,13 @@ package com.example.propertymanagementapplication;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.Optional;
@@ -17,13 +17,16 @@ import java.util.ResourceBundle;
 public class HomePageController implements Initializable {
 
     @FXML
-    private MFXButton addButton;
+    private Button addButton;
 
     @FXML
-    private MFXButton delButton;
+    private Button delButton;
 
     @FXML
-    private MFXButton editButton;
+    private ToggleButton editButton;
+
+    @FXML
+    private AnchorPane contentPane;
 
     @FXML
     private TableView<Client> table;
@@ -54,6 +57,7 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        contentPane.setStyle("-fx-background-image: url('background-colour.png');");
         dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
         tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
@@ -62,6 +66,10 @@ public class HomePageController implements Initializable {
         expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyExpenses"));
         commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("commission"));
         paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("paymentToClient"));
+        addButton.setDisable(true);
+        delButton.setDisable(true);
+        addButton.setVisible(false);
+        delButton.setVisible(false);
         addDummyClients();
     } // initialize
 
@@ -126,9 +134,9 @@ public class HomePageController implements Initializable {
     } // addDummyClients
 
     @FXML
-    protected void showAddDialog() {
-        System.out.println("You clicked on the add button!");
-    } // showAddDialog
+    protected void addClient() {
+        // TODO - Create add client dialog.
+    } // addClient
 
     @FXML
     protected void removeClient() {
@@ -148,6 +156,21 @@ public class HomePageController implements Initializable {
         if ((answer.isPresent()) && (answer.get()) == ButtonType.OK) {
             confirmationAlert.close();
         }
-    }
+    } // displayConfirmationDialog
+
+    @FXML
+    protected void onToggleButtonClicked(ActionEvent event) {
+        if (editButton.isSelected()) {
+            addButton.setDisable(false);
+            delButton.setDisable(false);
+            addButton.setVisible(true);
+            delButton.setVisible(true);
+        } else {
+            addButton.setDisable(true);
+            delButton.setDisable(true);
+            addButton.setVisible(false);
+            delButton.setVisible(false);
+        }
+    }  // onToggleButtonClicked
 
 } // class
