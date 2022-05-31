@@ -367,7 +367,7 @@
       </ScrollPane>
       <Label text="Dashboard" textFill="#686868" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
          <font>
-            <Font name="Roboto Bold" size="20.0" />
+            <Font name="Roboto Medium" size="20.0" />
          </font>
       </Label>
       <MFXTextField floatMode="DISABLED" prefHeight="30.0" prefWidth="400.0" promptText="Search" style="-fx-border-color: #D3D3D3;" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="6.0" />

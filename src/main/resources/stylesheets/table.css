@@ -42,13 +42,13 @@
     -fx-faint-focus-color: transparent;
 }
 .table-row-cell:selected {
-    -fx-background-color: grey;
-    -fx-text-background-color:  white;
+    -fx-background-color: lightgrey;
+    -fx-text-background-color:  black;
     -fx-table-cell-border-color: transparent;
 }
 .table-view:row-selection .table-row-cell:filled:hover {
-    -fx-background-color: grey;
-    -fx-text-background-color:  white;
+    -fx-background-color: lightgrey;
+    -fx-text-background-color:  black;
     -fx-table-cell-border-color: transparent;
 }
 /* Removing Default Blue Border */
