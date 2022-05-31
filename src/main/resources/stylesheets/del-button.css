@@ -4,7 +4,7 @@
     -fx-background-size: 15;
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);
-    -fx-background-image: url("minus-sign.png");
+    -fx-background-image: url("../icons/minus-sign.png");
 }
 .button:hover {
     -fx-background-color: lightgrey;

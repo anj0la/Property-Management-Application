@@ -43,8 +43,6 @@ public class SidebarMenuController {
     protected void initializeApplication() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home-page.fxml"));
         currentPage.getChildren().add(fxmlLoader.load());
-        // root.setStyle("-fx-background-image: url('grey-background.png');");
-        // currentPage.setStyle("-fx-background-image: url('grey-background.png');");
         homeButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         homeButton.setDisable(true);
         // all the information from the database will be loaded here

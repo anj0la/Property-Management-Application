@@ -57,7 +57,6 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // contentPane.setStyle("-fx-background-image: url('grey-background.png');");
         dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
         tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));

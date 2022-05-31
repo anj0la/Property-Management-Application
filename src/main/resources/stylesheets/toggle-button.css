@@ -4,13 +4,13 @@
     -fx-background-size: 20;
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);
-    -fx-background-image: url("../edit.png");
+    -fx-background-image: url("../icons/edit.png");
 }
 
 .toggle-button:selected {
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-color: lightgrey;
-    -fx-background-image: url("../edit-dimmed.png");
+    -fx-background-image: url("../icons/edit-dimmed.png");
 
 }
