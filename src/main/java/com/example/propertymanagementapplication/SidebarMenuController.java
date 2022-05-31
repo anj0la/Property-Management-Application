@@ -43,9 +43,9 @@ public class SidebarMenuController {
     protected void initializeApplication() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home-page.fxml"));
         currentPage.getChildren().add(fxmlLoader.load());
-        root.setStyle("-fx-background-image: url('background-colour.png');");
-        currentPage.setStyle("-fx-background-image: url('background-colour.png');");
-        homeButton.setStyle("-fx-background-color: black;" + "-fx-alignment: CENTER_LEFT");
+        // root.setStyle("-fx-background-image: url('grey-background.png');");
+        // currentPage.setStyle("-fx-background-image: url('grey-background.png');");
+        homeButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         homeButton.setDisable(true);
         // all the information from the database will be loaded here
         // and the table will be "reconstructed"
@@ -59,7 +59,7 @@ public class SidebarMenuController {
     protected void onHomeButtonClick() throws IOException {
         enableAllButtons();
         changeCurrentPage("home-page.fxml");
-        homeButton.setStyle("-fx-background-color: black;" + "-fx-alignment: CENTER_LEFT");
+        homeButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         homeButton.setDisable(true);
         System.out.println("The home button was clicked!");
         // might need to reload information from the database if the application
@@ -74,7 +74,7 @@ public class SidebarMenuController {
     protected void onReportButtonClick() throws IOException {
         enableAllButtons();
         changeCurrentPage("report-page.fxml");
-        reportButton.setStyle("-fx-background-color: black;" + "-fx-alignment: CENTER_LEFT");
+        reportButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         reportButton.setDisable(true);
         System.out.println("The report button was clicked!");
     } // onReportButtonClick
@@ -87,7 +87,7 @@ public class SidebarMenuController {
     protected void onArchiveButtonClick() throws IOException {
         enableAllButtons();
         changeCurrentPage("archive-page.fxml");
-        archiveButton.setStyle("-fx-background-color: black;" + "-fx-alignment: CENTER_LEFT");
+        archiveButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         archiveButton.setDisable(true);
         System.out.println("The archive button was clicked!");
     } // onArchiveButtonClick
@@ -100,7 +100,7 @@ public class SidebarMenuController {
     protected void onSettingsButtonClick() throws IOException {
         enableAllButtons();
         changeCurrentPage("settings-page.fxml");
-        settingsButton.setStyle("-fx-background-color: black;" + "-fx-alignment: CENTER_LEFT");
+        settingsButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         settingsButton.setDisable(true);
         System.out.println("The settings button was clicked!");
     } // onSettingsButtonClick

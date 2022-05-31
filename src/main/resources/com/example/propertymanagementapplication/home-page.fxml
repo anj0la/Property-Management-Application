@@ -24,7 +24,7 @@
                <children>
                   <HBox prefHeight="125.0" prefWidth="980.0" spacing="10.0" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
                            <children>
                               <Label text="Total Rent This Month" textFill="#979797">
                                  <VBox.margin>
@@ -82,7 +82,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
                            <children>
                               <Label text="Total Expenses This Month" textFill="#979797">
                                  <VBox.margin>
@@ -140,7 +140,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
                            <children>
                               <Label text="Total Income This Month" textFill="#979797">
                                  <VBox.margin>
@@ -198,7 +198,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                        <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
                            <children>
                               <Label text="Total Rent for This Month" textFill="#979797">
                                  <VBox.margin>
@@ -258,9 +258,9 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Pane prefHeight="600.0" prefWidth="740.0" style="-fx-background-color: white; -fx-background-radius: 15;" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="168.0">
+                  <Pane prefHeight="600.0" prefWidth="740.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="168.0">
                      <children>
-                        <TableView fx:id="table" layoutX="20.0" layoutY="10.0" prefHeight="550.0" prefWidth="700.0" stylesheets="@../../../stylesheets/table.css">
+                        <TableView fx:id="table" layoutX="20.0" layoutY="20.0" prefHeight="550.0" prefWidth="700.0" stylesheets="@../../../stylesheets/table.css">
                            <columns>
                               <TableColumn fx:id="dateJoinedColumn" prefWidth="87.5" text="Date Joined" />
                               <TableColumn fx:id="clientNameColumn" prefWidth="87.5" text="Client" />
@@ -274,6 +274,93 @@
                         </TableView>
                      </children>
                   </Pane>
+                  <VBox prefHeight="600.0" prefWidth="220.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="168.0">
+                     <children>
+                        <Label prefWidth="174.0" text="Current Clients">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Roboto Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="______________________________">
+                           <VBox.margin>
+                              <Insets left="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Sarah Beets - Phone,  Notes">
+                           <VBox.margin>
+                              <Insets left="8.0" top="12.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </content>
