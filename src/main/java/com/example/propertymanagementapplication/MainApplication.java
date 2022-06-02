@@ -18,6 +18,7 @@ public class MainApplication extends Application {
         mainController = fxmlLoader.getController();
         mainController.initializeApplication();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     } // start
 

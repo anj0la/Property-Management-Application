@@ -8,13 +8,13 @@ public class Client {
     private String clientName;
     private String tenantName;
     private String propertyAddress;
-    private double propertyRent;
-    private double propertyExpenses;
-    private double commission;
-    private double paymentToClient;
+    private Double propertyRent;
+    private Double propertyExpenses;
+    private Double commission;
+    private Double paymentToClient;
 
-    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, double rent,
-                  double expenses, double commission, double paymentToClient) {
+    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, Double rent,
+                  Double expenses, Double commission, Double paymentToClient) {
         this.dateJoined = dateJoined;
         this.clientName = clientName;
         this.tenantName = tenantName;
@@ -25,6 +25,10 @@ public class Client {
         this.paymentToClient = paymentToClient;
     } // Constructor
 
+    public Client() {
+        this("", "", "", "", 0.0, 0.0, 0.0,
+                0.0);
+    }
     public String getDateJoined() {
         return dateJoined;
     }

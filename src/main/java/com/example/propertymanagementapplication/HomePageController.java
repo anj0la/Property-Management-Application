@@ -1,6 +1,7 @@
 package com.example.propertymanagementapplication;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.Optional;
@@ -134,28 +137,84 @@ public class HomePageController implements Initializable {
 
     @FXML
     protected void addClient() {
-        // TODO - Create add client dialog.
     } // addClient
 
     @FXML
     protected void removeClient() {
-        // TODO - Add error checks for the function.
+        // TODO - Add delay between displaying confirmation dialog and error dialog.
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
-        displayConfirmationDialog();
-        table.getItems().remove(selectedIndex);
+        boolean ifOkayButtonPressed = displayConfirmationDialog();
+        if (selectedIndex == -1 && !ifOkayButtonPressed) {
+            return;
+        } else if (selectedIndex == -1 && ifOkayButtonPressed) {
+            displayErrorDialog();
+            return;
+        } else {
+            table.getItems().remove(selectedIndex);
+        }
     } // removeClient
 
     @FXML
-    protected void displayConfirmationDialog() {
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        String text = "Are you sure you would like to delete this entry?";
-        confirmationAlert.setTitle("Confirm");
-        confirmationAlert.setContentText(text);
-        Optional<ButtonType> answer = confirmationAlert.showAndWait();
+    private boolean displayConfirmationDialog() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Confirm");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setGraphic(null);
+        confirmationDialog.setResizable(false);
+        confirmationDialog.setContentText("Delete this entry? Press OK to confirm.");
+        Optional<ButtonType> answer = confirmationDialog.showAndWait();
         if ((answer.isPresent()) && (answer.get()) == ButtonType.OK) {
-            confirmationAlert.close();
+            confirmationDialog.close();
+            return answer.isPresent();
         }
+        return false;
     } // displayConfirmationDialog
+
+    private void displayErrorDialog() {
+        Alert errorDialog = new Alert(Alert.AlertType.ERROR);
+        errorDialog.setTitle("Error");
+        errorDialog.setHeaderText(null);
+        errorDialog.setGraphic(null);
+        errorDialog.setResizable(false);
+        errorDialog.setContentText("No entry in the table was selected to be deleted!");
+        Optional<ButtonType> buttonPressed = errorDialog.showAndWait();
+        if (buttonPressed.isPresent()) {
+            errorDialog.close();
+        }
+    } // displayErrorDialog
+
+    @FXML
+    private void displayAddClientDialog() {
+        Dialog<Client> addDialog = new AddDialog(new Client());
+        Optional<Client> result = addDialog.showAndWait();
+        if (result.isPresent()) {
+            Client newClient = result.get();
+            newClient.setCommission(0.10);
+            newClient.setPaymentToClient(newClient.getPropertyRent() - newClient.getCommission());
+            ObservableList<Client> clients = table.getItems();
+            clients.add(newClient);
+            table.setItems(clients);
+        }
+
+        Label dateJoined = new Label("Date Joined: ");
+        Label newClientName = new Label("Client Name: ");
+        Label newTenantName = new Label("Tenant Name: ");
+        Label newAddress = new Label("Address: ");
+        Label newRent = new Label("Rent: ");
+        Label newExpenses = new Label("Expenses: ");
+        TextField dateInput = new TextField();
+        TextField clientNameInput = new TextField();
+        TextField tenantNameInput = new TextField();
+        TextField addressInput = new TextField();
+        TextField rentInput = new TextField();
+        TextField expensesInput = new TextField();
+
+
+
+
+
+
+    } // displayAddClientDialog
 
     @FXML
     protected void onToggleButtonClicked(ActionEvent event) {
