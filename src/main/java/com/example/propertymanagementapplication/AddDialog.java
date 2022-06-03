@@ -6,9 +6,10 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class AddDialog extends Dialog<Client> {
 
@@ -66,6 +67,7 @@ public class AddDialog extends Dialog<Client> {
         getDialogPane().setContent(grid);
         getDialogPane().getButtonTypes().add(ButtonType.FINISH);
         Button finishButton = (Button) getDialogPane().lookupButton(ButtonType.FINISH);
+        getDialogPane().getStylesheets().add(getClass().getResource(("add-dialog.css")).toExternalForm());
         finishButton.addEventFilter(ActionEvent.ACTION, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
@@ -81,6 +83,9 @@ public class AddDialog extends Dialog<Client> {
         || addressInput.getText().isEmpty() || rentInput.getText().isEmpty() || expensesInput.getText().isEmpty()) {
             return true;
         }
+        /*if (new BigDecimal(rentInput.getText()) instanceof BigDecimal) {
+
+        }*/
         return false;
     }
 
@@ -93,8 +98,10 @@ public class AddDialog extends Dialog<Client> {
                     newClient.setClientName(clientNameInput.getText());
                     newClient.setTenantName(tenantNameInput.getText());
                     newClient.setPropertyAddress(addressInput.getText());
-                    newClient.setPropertyRent(Double.parseDouble(rentInput.getText()));
-                    newClient.setPropertyExpenses(Double.parseDouble(expensesInput.getText()));
+                    newClient.setPropertyRent(new BigDecimal(rentInput.getText()).
+                            setScale(2, RoundingMode.HALF_EVEN));
+                    newClient.setPropertyExpenses(new BigDecimal(expensesInput.getText()).
+                            setScale(2, RoundingMode.HALF_EVEN));
                     return newClient;
                 }
                 return null;

@@ -13,6 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,16 +49,16 @@ public class HomePageController implements Initializable {
     private TableColumn<Client, String> addressColumn;
 
     @FXML
-    private TableColumn<Client, Double> rentColumn;
+    private TableColumn<Client, BigDecimal> rentColumn;
 
     @FXML
-    private TableColumn<Client, Double> expensesColumn;
+    private TableColumn<Client, BigDecimal> expensesColumn;
 
     @FXML
-    private TableColumn<Client, Double> commissionColumn;
+    private TableColumn<Client, BigDecimal> commissionColumn;
 
     @FXML
-    private TableColumn<Client, Double> paymentColumn;
+    private TableColumn<Client, BigDecimal> paymentColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,10 +66,10 @@ public class HomePageController implements Initializable {
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
         tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("propertyAddress"));
-        rentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyRent"));
-        expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("propertyExpenses"));
-        commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("commission"));
-        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, Double>("paymentToClient"));
+        rentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyRent"));
+        expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyExpenses"));
+        commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("commission"));
+        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("paymentToClient"));
         addButton.setDisable(true);
         delButton.setDisable(true);
         addButton.setVisible(false);
@@ -80,53 +82,53 @@ public class HomePageController implements Initializable {
      */
     private void addDummyClients() {
         Client aDummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a1DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a2DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a3DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a4DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a5DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a6DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a7DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a8DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a9DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a10DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a11DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a12DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a13DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a14DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         Client a15DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", 550.50, 199.99, 0.10,
-                550.50 * 0.9);
+                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
+                BigDecimal.valueOf(550.50 * 0.9));
         ObservableList<Client> clients = table.getItems();
         clients.add(aDummyClient);
         clients.addAll(a1DummyClient, a2DummyClient, a3DummyClient, a4DummyClient, a5DummyClient, a6DummyClient,
@@ -189,31 +191,12 @@ public class HomePageController implements Initializable {
         Optional<Client> result = addDialog.showAndWait();
         if (result.isPresent()) {
             Client newClient = result.get();
-            newClient.setCommission(0.10);
-            newClient.setPaymentToClient(newClient.getPropertyRent() - newClient.getCommission());
+            newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
+            newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
             ObservableList<Client> clients = table.getItems();
             clients.add(newClient);
             table.setItems(clients);
         }
-
-        Label dateJoined = new Label("Date Joined: ");
-        Label newClientName = new Label("Client Name: ");
-        Label newTenantName = new Label("Tenant Name: ");
-        Label newAddress = new Label("Address: ");
-        Label newRent = new Label("Rent: ");
-        Label newExpenses = new Label("Expenses: ");
-        TextField dateInput = new TextField();
-        TextField clientNameInput = new TextField();
-        TextField tenantNameInput = new TextField();
-        TextField addressInput = new TextField();
-        TextField rentInput = new TextField();
-        TextField expensesInput = new TextField();
-
-
-
-
-
-
     } // displayAddClientDialog
 
     @FXML

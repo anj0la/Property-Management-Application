@@ -1,5 +1,7 @@
 package com.example.propertymanagementapplication;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 public class Client {
@@ -8,13 +10,13 @@ public class Client {
     private String clientName;
     private String tenantName;
     private String propertyAddress;
-    private Double propertyRent;
-    private Double propertyExpenses;
-    private Double commission;
-    private Double paymentToClient;
+    private BigDecimal propertyRent;
+    private BigDecimal propertyExpenses;
+    private BigDecimal commission;
+    private BigDecimal paymentToClient;
 
-    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, Double rent,
-                  Double expenses, Double commission, Double paymentToClient) {
+    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, BigDecimal rent,
+                  BigDecimal expenses, BigDecimal commission, BigDecimal paymentToClient) {
         this.dateJoined = dateJoined;
         this.clientName = clientName;
         this.tenantName = tenantName;
@@ -26,8 +28,11 @@ public class Client {
     } // Constructor
 
     public Client() {
-        this("", "", "", "", 0.0, 0.0, 0.0,
-                0.0);
+        this("", "", "", "",
+                new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
+                new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
+                new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
+                new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN));
     }
     public String getDateJoined() {
         return dateJoined;
@@ -61,36 +66,36 @@ public class Client {
         this.propertyAddress = propertyAddress;
     }
 
-    public double getPropertyRent() {
+
+    public BigDecimal getPropertyRent() {
         return propertyRent;
     }
 
-    public void setPropertyRent(double propertyRent) {
+    public void setPropertyRent(BigDecimal propertyRent) {
         this.propertyRent = propertyRent;
     }
 
-    public double getPropertyExpenses() {
+    public BigDecimal getPropertyExpenses() {
         return propertyExpenses;
     }
 
-    public void setPropertyExpenses(double propertyExpenses) {
+    public void setPropertyExpenses(BigDecimal propertyExpenses) {
         this.propertyExpenses = propertyExpenses;
     }
 
-    public double getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
 
-    public void setCommission(double commission) {
+    public void setCommission(BigDecimal commission) {
         this.commission = commission;
     }
 
-    public double getPaymentToClient() {
+    public BigDecimal getPaymentToClient() {
         return paymentToClient;
     }
 
-    public void setPaymentToClient(double paymentToClient) {
+    public void setPaymentToClient(BigDecimal paymentToClient) {
         this.paymentToClient = paymentToClient;
     }
-
 } // class
