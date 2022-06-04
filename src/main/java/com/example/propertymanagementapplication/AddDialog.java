@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class AddDialog extends Dialog<Client> {
-
     private Client newClient;
     private final Pane grid;
     private final Label dateJoined = new Label("Date Joined: ");

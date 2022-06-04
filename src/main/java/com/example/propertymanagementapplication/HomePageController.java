@@ -138,10 +138,6 @@ public class HomePageController implements Initializable {
     } // addDummyClients
 
     @FXML
-    protected void addClient() {
-    } // addClient
-
-    @FXML
     protected void removeClient() {
         // TODO - Add delay between displaying confirmation dialog and error dialog.
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
@@ -162,7 +158,8 @@ public class HomePageController implements Initializable {
         confirmationDialog.setTitle("Confirm");
         confirmationDialog.setHeaderText(null);
         confirmationDialog.setGraphic(null);
-        confirmationDialog.setResizable(false);
+        confirmationDialog.getDialogPane().getStylesheets().add(getClass().
+                getResource(("del-dialog.css")).toExternalForm());
         confirmationDialog.setContentText("Delete this entry? Press OK to confirm.");
         Optional<ButtonType> answer = confirmationDialog.showAndWait();
         if ((answer.isPresent()) && (answer.get()) == ButtonType.OK) {
@@ -177,7 +174,8 @@ public class HomePageController implements Initializable {
         errorDialog.setTitle("Error");
         errorDialog.setHeaderText(null);
         errorDialog.setGraphic(null);
-        errorDialog.setResizable(false);
+        errorDialog.getDialogPane().getStylesheets().add(getClass().
+                getResource(("del-dialog.css")).toExternalForm());
         errorDialog.setContentText("No entry in the table was selected to be deleted!");
         Optional<ButtonType> buttonPressed = errorDialog.showAndWait();
         if (buttonPressed.isPresent()) {
