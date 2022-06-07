@@ -2,6 +2,7 @@ package com.example.propertymanagementapplication;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import javafx.util.Duration;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,6 +65,12 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<Client> clientsFromDatabase;
+        try {
+            clientsFromDatabase = DatabaseConnector.getClients();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
         tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
@@ -74,7 +83,9 @@ public class HomePageController implements Initializable {
         delButton.setDisable(true);
         addButton.setVisible(false);
         delButton.setVisible(false);
-        addDummyClients();
+        table.setItems(clientsFromDatabase);
+        // addDummyClients();
+
     } // initialize
 
     /**
@@ -191,9 +202,14 @@ public class HomePageController implements Initializable {
             Client newClient = result.get();
             newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
             newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
-            ObservableList<Client> clients = table.getItems();
-            clients.add(newClient);
-            table.setItems(clients);
+            ObservableList<Client> clientsFromDatabase;
+            try {
+                DatabaseConnector.addClient(newClient);
+                clientsFromDatabase = DatabaseConnector.getClients();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            table.setItems(clientsFromDatabase);
         }
     } // displayAddClientDialog
 

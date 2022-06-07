@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Client {
 
+    private static int clientIDTracker = 0;
+    private int clientID;
     private String dateJoined;
     private String clientName;
     private String tenantName;
@@ -17,6 +19,7 @@ public class Client {
 
     public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, BigDecimal rent,
                   BigDecimal expenses, BigDecimal commission, BigDecimal paymentToClient) {
+        clientID = setClientID();
         this.dateJoined = dateJoined;
         this.clientName = clientName;
         this.tenantName = tenantName;
@@ -33,6 +36,16 @@ public class Client {
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN));
+    }
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public int setClientID() {
+        clientID = clientIDTracker + 1;
+        clientIDTracker = clientID;
+        return clientIDTracker;
     }
     public String getDateJoined() {
         return dateJoined;
@@ -65,7 +78,6 @@ public class Client {
     public void setPropertyAddress(String propertyAddress) {
         this.propertyAddress = propertyAddress;
     }
-
 
     public BigDecimal getPropertyRent() {
         return propertyRent;
