@@ -1,23 +1,16 @@
 package com.example.propertymanagementapplication;
 
-import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.animation.PauseTransition;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,7 +24,10 @@ public class HomePageController implements Initializable {
     private Button delButton;
 
     @FXML
-    private ToggleButton editButton;
+    private Button editButton;
+
+    @FXML
+    private ToggleButton settingsButton;
 
     @FXML
     private AnchorPane contentPane;
@@ -81,87 +77,79 @@ public class HomePageController implements Initializable {
         paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("paymentToClient"));
         addButton.setDisable(true);
         delButton.setDisable(true);
+        editButton.setDisable(true);
         addButton.setVisible(false);
         delButton.setVisible(false);
+        editButton.setVisible(false);
         table.setItems(clientsFromDatabase);
-        // addDummyClients();
-
     } // initialize
 
-    /**
-     * METHOD TO BE DELETED ONCE DATABASE HAS BEEN IMPLEMENTATION, PURELY FOR TESTING PURPOSES.
-     */
-    private void addDummyClients() {
-        Client aDummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a1DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a2DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a3DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a4DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a5DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a6DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a7DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a8DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a9DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a10DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a11DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a12DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a13DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a14DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        Client a15DummyClient = new Client("05/26/2022", "Sarah Beets", "Joy Waters",
-                "101 Milky Road", BigDecimal.valueOf(550.50), BigDecimal.valueOf(199.99), BigDecimal.valueOf(0.10),
-                BigDecimal.valueOf(550.50 * 0.9));
-        ObservableList<Client> clients = table.getItems();
-        clients.add(aDummyClient);
-        clients.addAll(a1DummyClient, a2DummyClient, a3DummyClient, a4DummyClient, a5DummyClient, a6DummyClient,
-                a7DummyClient, a8DummyClient, a9DummyClient, a10DummyClient, a11DummyClient, a12DummyClient,
-                a13DummyClient, a14DummyClient, a15DummyClient);
-        table.setItems(clients);
-    } // addDummyClients
+    @FXML
+    private void addClient() {
+        Dialog<Client> addDialog = new AddDialog(new Client(), "Add New Client", "Add a new entry into the table.");
+        ObservableList<Client> clientsFromDatabase;
+        Optional<Client> result = addDialog.showAndWait();
+        if (result.isPresent()) {
+            Client newClient = result.get();
+            newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
+            newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
+            try {
+                DatabaseConnector.addClient(newClient);
+                clientsFromDatabase = DatabaseConnector.getClients();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            table.setItems(clientsFromDatabase);
+        }
+    } // addClient
 
     @FXML
-    protected void removeClient() {
+    private void removeClient() {
         // TODO - Add delay between displaying confirmation dialog and error dialog.
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
         boolean ifOkayButtonPressed = displayConfirmationDialog();
+        ObservableList<Client> clientsFromDatabase;
         if (selectedIndex == -1 && !ifOkayButtonPressed) {
             return;
         } else if (selectedIndex == -1 && ifOkayButtonPressed) {
             displayErrorDialog();
             return;
         } else {
-            table.getItems().remove(selectedIndex);
+            System.out.println(selectedIndex);
+            try {
+                DatabaseConnector.removeClient(selectedIndex);
+                clientsFromDatabase = DatabaseConnector.getClients();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            table.setItems(clientsFromDatabase);
         }
     } // removeClient
+
+    @FXML
+    private void editClient() {
+        int selectedIndex = table.getSelectionModel().getSelectedIndex();
+        // boolean ifOkayButtonPressed = displayConfirmationDialog();
+        ObservableList<Client> clientsFromDatabase;
+        if (selectedIndex == -1) {
+            displayErrorDialog();
+            return;
+        }
+        try {
+            clientsFromDatabase = DatabaseConnector.getClients();
+            Dialog<Client> editDialog = new EditDialog(clientsFromDatabase.get(selectedIndex), "Edit Client", "Edit the current entry into the table.");
+            Optional<Client> result = editDialog.showAndWait();
+            if (result.isPresent()) {
+                DatabaseConnector.updateClient(clientsFromDatabase.get(selectedIndex));
+                // required to update the current list of clients from database as they have changed
+                clientsFromDatabase = DatabaseConnector.getClients();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        table.setItems(clientsFromDatabase); // will have updated client
+    } // editClient
+
 
     @FXML
     private boolean displayConfirmationDialog() {
@@ -187,7 +175,7 @@ public class HomePageController implements Initializable {
         errorDialog.setGraphic(null);
         errorDialog.getDialogPane().getStylesheets().add(getClass().
                 getResource(("del-dialog.css")).toExternalForm());
-        errorDialog.setContentText("No entry in the table was selected to be deleted!");
+        errorDialog.setContentText("No entry in the table was selected!");
         Optional<ButtonType> buttonPressed = errorDialog.showAndWait();
         if (buttonPressed.isPresent()) {
             errorDialog.close();
@@ -195,36 +183,22 @@ public class HomePageController implements Initializable {
     } // displayErrorDialog
 
     @FXML
-    private void displayAddClientDialog() {
-        Dialog<Client> addDialog = new AddDialog(new Client());
-        Optional<Client> result = addDialog.showAndWait();
-        if (result.isPresent()) {
-            Client newClient = result.get();
-            newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
-            newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
-            ObservableList<Client> clientsFromDatabase;
-            try {
-                DatabaseConnector.addClient(newClient);
-                clientsFromDatabase = DatabaseConnector.getClients();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            table.setItems(clientsFromDatabase);
-        }
-    } // displayAddClientDialog
-
-    @FXML
-    protected void onToggleButtonClicked(ActionEvent event) {
-        if (editButton.isSelected()) {
+    private void onToggleButtonClicked(ActionEvent event) {
+        if (settingsButton.isSelected()) {
             addButton.setDisable(false);
             delButton.setDisable(false);
+            editButton.setDisable(false);
             addButton.setVisible(true);
             delButton.setVisible(true);
+            editButton.setVisible(true);
         } else {
             addButton.setDisable(true);
             delButton.setDisable(true);
+            editButton.setDisable(true);
             addButton.setVisible(false);
             delButton.setVisible(false);
+            editButton.setVisible(false);
+
         }
     }  // onToggleButtonClicked
 

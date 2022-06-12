@@ -11,8 +11,12 @@ import javafx.util.Callback;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class AddDialog extends Dialog<Client> {
-    private Client newClient;
+public class AddDialog extends AbstractDialog {
+    public AddDialog(Client client, String title, String content) {
+        super(client, title, content);
+    }
+
+    /*private Client newClient;
     private final Pane grid;
     private final Label dateJoined = new Label("Date Joined: ");
     private final Label newClientName = new Label("Client Name: ");
@@ -37,16 +41,26 @@ public class AddDialog extends Dialog<Client> {
         receiveResults();
     } // Constructor
 
+    public AddDialog(Client client, String title, String content) {
+        super();
+        this.setTitle(title);
+        this.setContentText(content);
+        this.newClient = client;
+        grid = createGrid();
+        setUpAddDialog();
+        receiveResults();
+    }
+
     // Methods
     private GridPane createGrid() {
         GridPane gridPane = new GridPane();
         gridPane.setVgap(3);
-        dateInput = new TextField();
-        clientNameInput = new TextField();
-        tenantNameInput = new TextField();
-        addressInput = new TextField();
-        rentInput = new TextField();
-        expensesInput = new TextField();
+        dateInput = new TextField(newClient.getDateJoined());
+        clientNameInput = new TextField(newClient.getClientName());
+        tenantNameInput = new TextField(newClient.getTenantName());
+        addressInput = new TextField(newClient.getPropertyAddress());
+        rentInput = new TextField(newClient.getPropertyRent().toString());
+        expensesInput = new TextField(newClient.getPropertyExpenses().toString());
         gridPane.add(dateJoined, 0, 1);
         gridPane.add(dateInput, 1, 1);
         gridPane.add(newClientName, 0, 2);
@@ -82,9 +96,9 @@ public class AddDialog extends Dialog<Client> {
         || addressInput.getText().isEmpty() || rentInput.getText().isEmpty() || expensesInput.getText().isEmpty()) {
             return true;
         }
-        /*if (new BigDecimal(rentInput.getText()) instanceof BigDecimal) {
+        *//*if (new BigDecimal(rentInput.getText()) instanceof BigDecimal) {
 
-        }*/
+        }*//*
         return false;
     }
 
@@ -106,5 +120,5 @@ public class AddDialog extends Dialog<Client> {
                 return null;
             }
         });
-    }
+    }*/
 } // class

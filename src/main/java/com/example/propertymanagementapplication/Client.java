@@ -6,8 +6,7 @@ import java.util.Date;
 
 public class Client {
 
-    private static int clientIDTracker = 0;
-    private int clientID;
+    private int id;
     private String dateJoined;
     private String clientName;
     private String tenantName;
@@ -17,9 +16,9 @@ public class Client {
     private BigDecimal commission;
     private BigDecimal paymentToClient;
 
-    public Client(String dateJoined, String clientName, String tenantName, String propertyAddress, BigDecimal rent,
+    public Client(int id, String dateJoined, String clientName, String tenantName, String propertyAddress, BigDecimal rent,
                   BigDecimal expenses, BigDecimal commission, BigDecimal paymentToClient) {
-        clientID = setClientID();
+        this.id = id;
         this.dateJoined = dateJoined;
         this.clientName = clientName;
         this.tenantName = tenantName;
@@ -31,21 +30,11 @@ public class Client {
     } // Constructor
 
     public Client() {
-        this("", "", "", "",
+        this(Integer.MAX_VALUE, "", "", "", "",
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN));
-    }
-
-    public int getClientID() {
-        return clientID;
-    }
-
-    public int setClientID() {
-        clientID = clientIDTracker + 1;
-        clientIDTracker = clientID;
-        return clientIDTracker;
     }
     public String getDateJoined() {
         return dateJoined;
@@ -109,5 +98,13 @@ public class Client {
 
     public void setPaymentToClient(BigDecimal paymentToClient) {
         this.paymentToClient = paymentToClient;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 } // class
