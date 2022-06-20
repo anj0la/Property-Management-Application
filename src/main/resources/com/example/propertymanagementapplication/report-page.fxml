@@ -35,8 +35,8 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Button mnemonicParsing="false" prefWidth="61.5" stylesheets="@../../../stylesheets/button-style.css" text="Yearly" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="630.0" />
-                  <Button mnemonicParsing="false" stylesheets="@../../../stylesheets/button-style.css" text="Monthly" AnchorPane.leftAnchor="425.0" AnchorPane.topAnchor="630.0" />
+                  <Button fx:id="yearlyReportButton" mnemonicParsing="false" prefWidth="61.5" stylesheets="@../../../stylesheets/button-style.css" text="Yearly" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="630.0" />
+                  <Button fx:id="monthlyReportButton" mnemonicParsing="false" stylesheets="@../../../stylesheets/button-style.css" text="Monthly" AnchorPane.leftAnchor="425.0" AnchorPane.topAnchor="630.0" />
                </children>
             </AnchorPane>
          </content>
@@ -52,6 +52,8 @@
             <Image url="@../../../icons/magnifying-glass.png" />
          </image>
       </ImageView>
-      <ToggleButton layoutX="591.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/toggle-button.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="6.0" />
+      <ToggleButton fx:id="settingsButton" layoutX="591.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/toggle-button.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="6.0" />
+      <Button fx:id="printButton" layoutX="915.0" layoutY="8.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/print-button.css" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="6.0" />
+      <Button fx:id="shareButton" layoutX="925.0" layoutY="18.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/share-button.css" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>

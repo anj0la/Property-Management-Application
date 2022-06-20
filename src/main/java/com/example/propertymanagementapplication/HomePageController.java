@@ -59,6 +59,18 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<Client, BigDecimal> paymentColumn;
 
+    @FXML
+    private Label totalRentLabel;
+
+    @FXML
+    private Label totalExpensesLabel;
+
+    @FXML
+    private Label totalCommissionLabel;
+
+    @FXML
+    private Label totalClientPaymentLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Client> clientsFromDatabase;
@@ -83,6 +95,8 @@ public class HomePageController implements Initializable {
         editButton.setVisible(false);
         table.setItems(clientsFromDatabase);
     } // initialize
+
+
 
     @FXML
     private void addClient() {
@@ -198,7 +212,6 @@ public class HomePageController implements Initializable {
             addButton.setVisible(false);
             delButton.setVisible(false);
             editButton.setVisible(false);
-
         }
     }  // onToggleButtonClicked
 

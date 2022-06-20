@@ -3,9 +3,6 @@ package com.example.propertymanagementapplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.xml.transform.Result;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.*;
 
 public class DatabaseConnector {
@@ -75,6 +72,74 @@ public class DatabaseConnector {
         int rows = pStatement.executeUpdate();
         System.out.println("Rows impacted: " + rows);
         connection.close();
+    } // updateClient
+
+    public static MonthlyTotals collectMonthlyTotals() throws SQLException {
+        MonthlyTotals currentMonthlyTotals = new MonthlyTotals();
+        ObservableList<Client> listOfClients = getClients();
+        for (Client client : listOfClients) {
+            currentMonthlyTotals.getTotalMonthlyRent().add(client.getPropertyRent());
+            currentMonthlyTotals.getTotalMonthlyExpenses().add(client.getPropertyExpenses());
+            currentMonthlyTotals.getTotalMonthlyCommission().add(client.getCommission());
+            currentMonthlyTotals.getTotalMonthlyRent().add(client.getPaymentToClient());
+        }
+        currentMonthlyTotals.setCurrentMonth("June");
+        return currentMonthlyTotals;
+    }
+
+    public static ObservableList<MonthlyTotals> getMonthlyTotals() throws SQLException {
+        Connection connection = getDatabaseConnection();
+        ObservableList<MonthlyTotals> monthlyTotalsList = FXCollections.observableArrayList();
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            monthlyTotalsList.add(new MonthlyTotals(resultSet.getString("current_month"),
+                    resultSet.getBigDecimal("rent"), resultSet.getBigDecimal("expenses"), resultSet.getBigDecimal("commission"),
+                    resultSet.getBigDecimal("client_payment")));
+        }
+        return monthlyTotalsList;
+    } // getClients
+
+    public static void insertMonthlyTotals() throws SQLException {
+        Connection connection = getDatabaseConnection();
+        MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
+        PreparedStatement pStatement = connection.prepareStatement("insert into yearly_table (current_month, rent," +
+                " expenses, commission, client_payment)values(?, ?, ?, ?, ?)");
+        pStatement.setString(1, currentMonthlyTotals.getCurrentMonth());
+        pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyRent());
+        pStatement.setBigDecimal(3, currentMonthlyTotals.getTotalMonthlyExpenses());
+        pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyCommission());
+        pStatement.setBigDecimal(5, currentMonthlyTotals.getTotalMonthlyPaymentToClients());
+        pStatement.execute();
+    }
+
+    public static void updateMonthlyTotals() throws SQLException {
+        Connection connection = getDatabaseConnection();
+        MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
+        PreparedStatement pStatement = connection.prepareStatement("update client.yearly_table set " +
+                "rent = ?, expenses = ?, commission = ?, client_payment = ? where current_month = ?");
+        pStatement.setBigDecimal(1, currentMonthlyTotals.getTotalMonthlyRent());
+        pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyExpenses());
+        pStatement.setBigDecimal(3, currentMonthlyTotals.getTotalMonthlyCommission());
+        pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyPaymentToClients());
+        pStatement.setString(5, currentMonthlyTotals.getCurrentMonth());
+        int rows = pStatement.executeUpdate();
+        System.out.println("Rows impacted: " + rows);
+        connection.close();
+    }
+
+    public static ObservableList<MonthlyTotals> getYearlyTableValues() throws SQLException {
+        Connection connection = getDatabaseConnection();
+        ObservableList<MonthlyTotals> monthlyValues = FXCollections.observableArrayList();
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            monthlyValues.add(new MonthlyTotals(resultSet.getString("month"),
+                            resultSet.getBigDecimal("rent"), resultSet.getBigDecimal("expenses"),
+                    resultSet.getBigDecimal("commission"),
+                    resultSet.getBigDecimal("client_payment")));
+        }
+        return monthlyValues;
     }
 
 } // class

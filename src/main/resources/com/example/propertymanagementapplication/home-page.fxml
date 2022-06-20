@@ -36,7 +36,7 @@
                               </Label>
                               <HBox prefHeight="65.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="\$550.50">
+                                    <Label fx:id="totalRentLabel" text="\$550.50">
                                        <font>
                                           <Font name="Roboto Bold" size="24.0" />
                                        </font>
@@ -94,7 +94,7 @@
                               </Label>
                               <HBox prefHeight="65.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="\$250.50" textFill="#c91515">
+                                    <Label fx:id="totalExpensesLabel" text="\$250.50" textFill="#c91515">
                                        <font>
                                           <Font name="Roboto Bold" size="24.0" />
                                        </font>
@@ -152,7 +152,7 @@
                               </Label>
                               <HBox prefHeight="65.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="\$150.50">
+                                    <Label fx:id="totalCommissionLabel" text="\$150.50">
                                        <font>
                                           <Font name="Roboto Bold" size="24.0" />
                                        </font>
@@ -210,7 +210,7 @@
                               </Label>
                               <HBox prefHeight="65.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="\$400.00">
+                                    <Label fx:id="totalClientPaymentLabel" text="\$400.00">
                                        <font>
                                           <Font name="Roboto Bold" size="24.0" />
                                        </font>
