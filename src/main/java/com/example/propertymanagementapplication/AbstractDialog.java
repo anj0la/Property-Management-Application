@@ -10,6 +10,9 @@ import javafx.util.Callback;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Creates an abstract dialog class, specifying how the dialog will open/close, and the value it will return.
+ */
 public abstract class AbstractDialog extends Dialog<Client> {
 
     protected Client client;
@@ -27,6 +30,12 @@ public abstract class AbstractDialog extends Dialog<Client> {
     protected TextField rentInput;
     protected TextField expensesInput;
 
+    /**
+     * Construct an Abstract Dialog.
+     * @param client the client
+     * @param title the title of the dialog
+     * @param content the content of the dialog
+     */
     public AbstractDialog(Client client, String title, String content) {
         super();
         this.setTitle(title);
@@ -37,6 +46,10 @@ public abstract class AbstractDialog extends Dialog<Client> {
         receiveResults();
     } // Constructor
 
+    /**
+     * Creates the layout of the dialog.
+     * @return - the layout of the dialog (a grid pane)
+     */
     private GridPane createGrid() {
         GridPane gridPane = new GridPane();
         gridPane.setVgap(3);
@@ -61,6 +74,9 @@ public abstract class AbstractDialog extends Dialog<Client> {
         return gridPane;
     } // createGrid
 
+    /**
+     * Sets up the dialog.
+     */
     private void setUpDialog() {
         getDialogPane().setContent(grid);
         getDialogPane().getButtonTypes().add(ButtonType.FINISH);
@@ -76,6 +92,10 @@ public abstract class AbstractDialog extends Dialog<Client> {
         });
     } // setUpDialog
 
+    /**
+     * Checks if the dialog is invalid.
+     * @return - true if the dialog has at least one entry that is empty; false otherwise.
+     */
     private boolean invalidDialog() {
         if (dateInput.getText().isEmpty() || clientNameInput.getText().isEmpty() || tenantNameInput.getText().isEmpty()
                 || addressInput.getText().isEmpty() || rentInput.getText().isEmpty() || expensesInput.getText().isEmpty()) {
@@ -84,6 +104,9 @@ public abstract class AbstractDialog extends Dialog<Client> {
         return false;
     } // invalidDialog
 
+    /**
+     * Receives the results of the dialog and will either return the client, or null if the finish button was not pressed.
+     */
     public void receiveResults() {
         setResultConverter(new Callback<ButtonType, Client>() {
             @Override

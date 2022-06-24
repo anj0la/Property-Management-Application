@@ -7,11 +7,22 @@ import java.sql.*;
 
 public class DatabaseConnector {
 
+    /**
+     * Gets the MYSQL database connection.
+     * @return - the connection to the database
+     * @throws SQLException when no database connection can be established
+     */
     public static Connection getDatabaseConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/client", "root", "");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/client",
+                "root", "");
         return connection;
     } // getDatabaseConnection
 
+    /**
+     * Gets and returns a list of clients in the database.
+     * @return - an observable list of Clients
+     * @throws SQLException when no database connection can be established
+     */
     public static ObservableList<Client> getClients() throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<Client> listOfClients = FXCollections.observableArrayList();
@@ -27,6 +38,11 @@ public class DatabaseConnector {
         return listOfClients;
     } // getClients
 
+    /**
+     * Adds a client into the regular table in the database.
+     * @param aClient the client to be added
+     * @throws SQLException when no database connection can be established
+     */
     public static void addClient(Client aClient) throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<Client> listOfClients = getClients();
@@ -43,17 +59,25 @@ public class DatabaseConnector {
         pStatement.execute();
     } // addClient
 
+    /**
+     * Removes a client from the regular table in the database.
+     * @param selectedIndex the index of the client to be deleted
+     * @throws SQLException when no database connection can be established
+     */
     public static void removeClient(int selectedIndex) throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<Client> listOfClients = getClients();
         Client currentClient = listOfClients.get(selectedIndex);
         PreparedStatement pStatement = connection.prepareStatement("delete from client.regular_table where client_id = ?");
-        // PreparedStatement pStatement = connection.prepareStatement("delete from client.regular_table where client_id = client.getID");
         pStatement.setInt(1, currentClient.getId());
         pStatement.execute();
     } // removeClient
 
-
+    /**
+     * Updates the selected client in the regular table.
+     * @param selectedClient the client to have its values be updated in the table
+     * @throws SQLException when no database connection can be established
+     */
     public static void updateClient(Client selectedClient) throws SQLException {
         Connection connection = getDatabaseConnection();
         PreparedStatement pStatement = connection.prepareStatement("update client.regular_table set " +
@@ -74,6 +98,11 @@ public class DatabaseConnector {
         connection.close();
     } // updateClient
 
+    /**
+     * Collects the monthly rent, expenses, commission and client payments.
+     * @return - the monthly totals for the current month
+     * @throws SQLException when no database connection can be established
+     */
     public static MonthlyTotals collectMonthlyTotals() throws SQLException {
         MonthlyTotals currentMonthlyTotals = new MonthlyTotals();
         ObservableList<Client> listOfClients = getClients();
@@ -87,6 +116,11 @@ public class DatabaseConnector {
         return currentMonthlyTotals;
     }
 
+    /**
+     * Gets the monthly totals from the yearly table in the database.
+     * @return - an observable list of monthly totals
+     * @throws SQLException
+     */
     public static ObservableList<MonthlyTotals> getMonthlyTotals() throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<MonthlyTotals> monthlyTotalsList = FXCollections.observableArrayList();
@@ -100,19 +134,27 @@ public class DatabaseConnector {
         return monthlyTotalsList;
     } // getClients
 
+    /**
+     * Inserts monthly totals into the yearly table.
+     * @throws SQLException when no database connection can be established
+     */
     public static void insertMonthlyTotals() throws SQLException {
         Connection connection = getDatabaseConnection();
         MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
         PreparedStatement pStatement = connection.prepareStatement("insert into yearly_table (current_month, rent," +
                 " expenses, commission, client_payment)values(?, ?, ?, ?, ?)");
-        pStatement.setString(1, currentMonthlyTotals.getCurrentMonth());
+        pStatement.setString(1, currentMonthlyTotals.getCurrentMonth()); // CHANGE to the current month (multi threading stuff)
         pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyRent());
         pStatement.setBigDecimal(3, currentMonthlyTotals.getTotalMonthlyExpenses());
         pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyCommission());
         pStatement.setBigDecimal(5, currentMonthlyTotals.getTotalMonthlyPaymentToClients());
         pStatement.execute();
-    }
+    } // insertMonthlyTotals
 
+    /**
+     * Updates the monthly totals.
+     * @throws SQLException when no database connection can be established
+     */
     public static void updateMonthlyTotals() throws SQLException {
         Connection connection = getDatabaseConnection();
         MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
@@ -126,8 +168,13 @@ public class DatabaseConnector {
         int rows = pStatement.executeUpdate();
         System.out.println("Rows impacted: " + rows);
         connection.close();
-    }
+    } // updateMonthlyTotals
 
+    /**
+     * Gets the yearly table values from the yearly table in the database.
+     * @return - an observable list of monthly totals
+     * @throws SQLException
+     */
     public static ObservableList<MonthlyTotals> getYearlyTableValues() throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<MonthlyTotals> monthlyValues = FXCollections.observableArrayList();
@@ -140,6 +187,6 @@ public class DatabaseConnector {
                     resultSet.getBigDecimal("client_payment")));
         }
         return monthlyValues;
-    }
+    } // getYearlyTableValues
 
 } // class

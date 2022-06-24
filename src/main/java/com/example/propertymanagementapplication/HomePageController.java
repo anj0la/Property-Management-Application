@@ -1,7 +1,6 @@
 package com.example.propertymanagementapplication;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,6 +14,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class controllers the home page. The methods presented below help with the functionality of the home page,
+ * such as adding, deleting and editing table entries.
+ */
 public class HomePageController implements Initializable {
 
     @FXML
@@ -71,6 +74,11 @@ public class HomePageController implements Initializable {
     @FXML
     private Label totalClientPaymentLabel;
 
+    /**
+     * Initializes the home page.
+     * @param url the url
+     * @param resourceBundle the resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Client> clientsFromDatabase;
@@ -96,8 +104,9 @@ public class HomePageController implements Initializable {
         table.setItems(clientsFromDatabase);
     } // initialize
 
-
-
+    /**
+     * Adds a client to the table.
+     */
     @FXML
     private void addClient() {
         Dialog<Client> addDialog = new AddDialog(new Client(), "Add New Client", "Add a new entry into the table.");
@@ -117,6 +126,9 @@ public class HomePageController implements Initializable {
         }
     } // addClient
 
+    /**
+     * Removes a client from the table.
+     */
     @FXML
     private void removeClient() {
         // TODO - Add delay between displaying confirmation dialog and error dialog.
@@ -140,10 +152,12 @@ public class HomePageController implements Initializable {
         }
     } // removeClient
 
+    /**
+     * Edits a client in the table.
+     */
     @FXML
     private void editClient() {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
-        // boolean ifOkayButtonPressed = displayConfirmationDialog();
         ObservableList<Client> clientsFromDatabase;
         if (selectedIndex == -1) {
             displayErrorDialog();
@@ -164,7 +178,10 @@ public class HomePageController implements Initializable {
         table.setItems(clientsFromDatabase); // will have updated client
     } // editClient
 
-
+    /**
+     * Displays a confirmation dialog.
+     * @return - true if the ok button was pressed; false otherwise
+     */
     @FXML
     private boolean displayConfirmationDialog() {
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -182,6 +199,9 @@ public class HomePageController implements Initializable {
         return false;
     } // displayConfirmationDialog
 
+    /**
+     * Displays an error dialog.
+     */
     private void displayErrorDialog() {
         Alert errorDialog = new Alert(Alert.AlertType.ERROR);
         errorDialog.setTitle("Error");
@@ -196,8 +216,11 @@ public class HomePageController implements Initializable {
         }
     } // displayErrorDialog
 
+    /**
+     * Handles the toggling of the settings button when.
+     */
     @FXML
-    private void onToggleButtonClicked(ActionEvent event) {
+    private void onToggleButtonClicked() {
         if (settingsButton.isSelected()) {
             addButton.setDisable(false);
             delButton.setDisable(false);

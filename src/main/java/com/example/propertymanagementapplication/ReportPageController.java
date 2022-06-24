@@ -1,12 +1,9 @@
 package com.example.propertymanagementapplication;
 
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -17,8 +14,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * This class contains the methods needed to do anything in the report page, such as viewing the monthly and yearly
- * table.
+ * This class controls the report page. The methods presented below help with the functionality of the report page,
+ * such as viewing the monthly and yearly table, and generating/sharing PDFs for both tables.
  */
 public class ReportPageController implements Initializable {
 
@@ -89,7 +86,7 @@ public class ReportPageController implements Initializable {
         shareButton.setVisible(false);
         printButton.setVisible(false);
         table.setItems(clientsFromDatabase);
-    }
+    } // initialize
 
     @FXML
     private void onToggleButtonClicked(ActionEvent event) {
@@ -108,8 +105,13 @@ public class ReportPageController implements Initializable {
 
     @FXML
     private void createPDFFromTable() {
-
-    }
+        ObservableList<Client> clientsFromDatabase;
+        try {
+            clientsFromDatabase = DatabaseConnector.getClients();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    } // createPDFFromTable
     @FXML
     /**
      * Displays the current share options that the user can select.
