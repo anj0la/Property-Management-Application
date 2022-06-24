@@ -10,5 +10,5 @@ view the commission they make, and the amount that the owner earns per month.
 - Complete the prototype - Completed May 27th, 2022 ✔️
 - Finish creating the main classes for the application - Completed June 1st, 2022 ✔️
 - Construct the database being used to store the data used in the application - June 12th, 2022 ✔️
-- Have a minimum viable product - June 30th, 2022
-- Complete the application - July 10th, 2022
+- Have a minimum viable product - Early July
+- Complete the application - Mid July
