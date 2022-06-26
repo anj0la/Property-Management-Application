@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class DatabaseConnector {
 
@@ -103,7 +105,7 @@ public class DatabaseConnector {
      * @return - the monthly totals for the current month
      * @throws SQLException when no database connection can be established
      */
-    public static MonthlyTotals collectMonthlyTotals() throws SQLException {
+    public static MonthlyTotals collectMonthlyTotals(Month currentMonth) throws SQLException {
         MonthlyTotals currentMonthlyTotals = new MonthlyTotals();
         ObservableList<Client> listOfClients = getClients();
         for (Client client : listOfClients) {
@@ -112,14 +114,14 @@ public class DatabaseConnector {
             currentMonthlyTotals.getTotalMonthlyCommission().add(client.getCommission());
             currentMonthlyTotals.getTotalMonthlyRent().add(client.getPaymentToClient());
         }
-        currentMonthlyTotals.setCurrentMonth("June");
+        currentMonthlyTotals.setCurrentMonth(currentMonth.toString());
         return currentMonthlyTotals;
-    }
+    } // collectMonthlyTotals
 
     /**
      * Gets the monthly totals from the yearly table in the database.
      * @return - an observable list of monthly totals
-     * @throws SQLException
+     * @throws SQLException when no database connection can be established
      */
     public static ObservableList<MonthlyTotals> getMonthlyTotals() throws SQLException {
         Connection connection = getDatabaseConnection();
@@ -132,15 +134,14 @@ public class DatabaseConnector {
                     resultSet.getBigDecimal("client_payment")));
         }
         return monthlyTotalsList;
-    } // getClients
+    } // getMonthlyTotals
 
     /**
      * Inserts monthly totals into the yearly table.
      * @throws SQLException when no database connection can be established
      */
-    public static void insertMonthlyTotals() throws SQLException {
+    public static void insertMonthlyTotals(MonthlyTotals currentMonthlyTotals) throws SQLException {
         Connection connection = getDatabaseConnection();
-        MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
         PreparedStatement pStatement = connection.prepareStatement("insert into yearly_table (current_month, rent," +
                 " expenses, commission, client_payment)values(?, ?, ?, ?, ?)");
         pStatement.setString(1, currentMonthlyTotals.getCurrentMonth()); // CHANGE to the current month (multi threading stuff)
@@ -155,9 +156,8 @@ public class DatabaseConnector {
      * Updates the monthly totals.
      * @throws SQLException when no database connection can be established
      */
-    public static void updateMonthlyTotals() throws SQLException {
+    public static void updateMonthlyTotals(MonthlyTotals currentMonthlyTotals) throws SQLException {
         Connection connection = getDatabaseConnection();
-        MonthlyTotals currentMonthlyTotals = collectMonthlyTotals();
         PreparedStatement pStatement = connection.prepareStatement("update client.yearly_table set " +
                 "rent = ?, expenses = ?, commission = ?, client_payment = ? where current_month = ?");
         pStatement.setBigDecimal(1, currentMonthlyTotals.getTotalMonthlyRent());
@@ -171,22 +171,31 @@ public class DatabaseConnector {
     } // updateMonthlyTotals
 
     /**
-     * Gets the yearly table values from the yearly table in the database.
-     * @return - an observable list of monthly totals
-     * @throws SQLException
+     * Handles and executes the correct method to deal with the monthly total values in the database.
+     * @throws SQLException when no database connection can be established
      */
-    public static ObservableList<MonthlyTotals> getYearlyTableValues() throws SQLException {
-        Connection connection = getDatabaseConnection();
-        ObservableList<MonthlyTotals> monthlyValues = FXCollections.observableArrayList();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            monthlyValues.add(new MonthlyTotals(resultSet.getString("month"),
-                            resultSet.getBigDecimal("rent"), resultSet.getBigDecimal("expenses"),
-                    resultSet.getBigDecimal("commission"),
-                    resultSet.getBigDecimal("client_payment")));
+    public void handleMonthlyTotals () throws SQLException {
+        Month currentMonth = LocalDate.now().getMonth();
+        ObservableList<MonthlyTotals> monthlyTotalsFromDatabase = getMonthlyTotals();
+        MonthlyTotals currMonthlyTotals = collectMonthlyTotals(currentMonth);
+        if (!isMonthInDatabase(currentMonth, monthlyTotalsFromDatabase)) {
+            insertMonthlyTotals(currMonthlyTotals);
+        } else {
+            updateMonthlyTotals(currMonthlyTotals);
         }
-        return monthlyValues;
-    } // getYearlyTableValues
+    }  // handleMonthlyTotals
+
+    /**
+     * Checks if the current month is in the yearly table database.
+     * @returns - true if the current month is in the database; false otherwise
+     */
+    private boolean isMonthInDatabase(Month currentMonth, ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+        for (MonthlyTotals monthlyTotals : monthlyTotalsFromDatabase) {
+            if (monthlyTotals.getCurrentMonth().equals(currentMonth.toString())) {
+                return true;
+            }
+        }
+        return false;
+    } // isMonthInDatabase
 
 } // class

@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -82,11 +84,25 @@ public class HomePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Client> clientsFromDatabase;
+        // ObservableList<MonthlyTotals> monthlyTotalsFromDatabase;
         try {
             clientsFromDatabase = DatabaseConnector.getClients();
+            // DatabaseConnector.handleMonthlyTotals();
+            // monthlyTotalsFromDatabase = DatabaseConnector.getMonthlyTotals();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        initializeTable(clientsFromDatabase);
+        setUpButtons();
+        // displayMonthlyTotals();
+    } // initialize
+
+    /**
+     * Initializes the home page table, displaying all the current clients from the database.
+     * @param clientsFromDatabase the list of clients from the SQL database
+     */
+    @FXML
+    private void initializeTable(ObservableList<Client> clientsFromDatabase) {
         dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
         tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
@@ -95,17 +111,42 @@ public class HomePageController implements Initializable {
         expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyExpenses"));
         commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("commission"));
         paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("paymentToClient"));
+        table.setItems(clientsFromDatabase);
+    } // initializeTable
+
+    /**
+     * Sets up the visibility of the add, del, and edit buttons.
+     */
+    @FXML
+    private void setUpButtons() {
         addButton.setDisable(true);
         delButton.setDisable(true);
         editButton.setDisable(true);
         addButton.setVisible(false);
         delButton.setVisible(false);
         editButton.setVisible(false);
-        table.setItems(clientsFromDatabase);
-    } // initialize
+    } // setUpButtons
+
+    /**
+     * Displays the monthly totals.
+     */
+    @FXML
+    private void displayMonthlyTotals(ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+        Month month = LocalDate.now().getMonth();
+        for (MonthlyTotals monthlyTotals : monthlyTotalsFromDatabase) {
+            if (monthlyTotals.getCurrentMonth().equals(month.toString())) {
+                MonthlyTotals currentMonthlyTotals = monthlyTotals;
+                totalRentLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
+                totalExpensesLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
+                totalCommissionLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
+                totalClientPaymentLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
+            }
+        }
+    } // displayMonthlyTotals
 
     /**
      * Adds a client to the table.
+     * TODO - Add "error check" that checks if the client's name is already in the table.
      */
     @FXML
     private void addClient() {
@@ -114,6 +155,14 @@ public class HomePageController implements Initializable {
         Optional<Client> result = addDialog.showAndWait();
         if (result.isPresent()) {
             Client newClient = result.get();
+            // int numOccur = checkHowManyTimesClientAppears(newClient);
+            // if (numOccur == 1) {
+                // newClient.setCommission(new BigDecimal(0.09).setScale(2, RoundingMode.HALF_EVEN));
+            // } else if (if numOccur >= 2) {
+                // newClient.setCommission(new BigDecimal(0.08).setScale(2, RoundingMode.HALF_EVEN));
+            // } else {
+                // newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
+            // }
             newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
             newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
             try {
@@ -151,6 +200,28 @@ public class HomePageController implements Initializable {
             table.setItems(clientsFromDatabase);
         }
     } // removeClient
+
+    /**
+     * Checks how many times a client has appeared in the database.
+     * @param aClient the client to be checked
+     * @return - the number of times a client appears in the database.
+     */
+    @FXML
+    private int checkHowManyTimesClientAppears(Client aClient) {
+        int numOccur = 0;
+        ObservableList<Client> clientsFromDatabase;
+        try {
+            clientsFromDatabase = DatabaseConnector.getClients();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (Client client : clientsFromDatabase) {
+            if (client.getClientName().equals(aClient.getClientName())) {
+                numOccur++;
+            }
+        }
+        return numOccur;
+    } // checkHowManyTimesClientAppears
 
     /**
      * Edits a client in the table.
