@@ -3,6 +3,7 @@ package com.example.propertymanagementapplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Month;
@@ -57,7 +58,7 @@ public class DatabaseConnector {
         pStatement.setBigDecimal(5, aClient.getPropertyRent());
         pStatement.setBigDecimal(6, aClient.getPropertyExpenses());
         pStatement.setBigDecimal(7, aClient.getCommission());
-        pStatement.setBigDecimal(8, aClient.getPaymentToClient());
+        pStatement.setBigDecimal(8, aClient.getClientPayment());
         pStatement.execute();
     } // addClient
 
@@ -92,8 +93,8 @@ public class DatabaseConnector {
         pStatement.setBigDecimal(5, selectedClient.getPropertyRent());
         pStatement.setBigDecimal(6, selectedClient.getPropertyExpenses());
         pStatement.setBigDecimal(7, selectedClient.getCommission());
-        selectedClient.setPaymentToClient(selectedClient.getPropertyRent().subtract(selectedClient.getCommission()));
-        pStatement.setBigDecimal(8, selectedClient.getPaymentToClient());
+        selectedClient.setClientPayment(selectedClient.getPropertyRent().subtract(selectedClient.getCommission()));
+        pStatement.setBigDecimal(8, selectedClient.getClientPayment());
         pStatement.setInt(9, selectedClient.getId());
         int rows = pStatement.executeUpdate();
         System.out.println("Rows impacted: " + rows);
@@ -109,14 +110,19 @@ public class DatabaseConnector {
         MonthlyTotals currentMonthlyTotals = new MonthlyTotals();
         ObservableList<Client> listOfClients = getClients();
         for (Client client : listOfClients) {
-            currentMonthlyTotals.getTotalMonthlyRent().add(client.getPropertyRent());
-            currentMonthlyTotals.getTotalMonthlyExpenses().add(client.getPropertyExpenses());
-            currentMonthlyTotals.getTotalMonthlyCommission().add(client.getCommission());
-            currentMonthlyTotals.getTotalMonthlyRent().add(client.getPaymentToClient());
+            BigDecimal monthlyRent = currentMonthlyTotals.getTotalMonthlyRent();
+            BigDecimal monthlyExpenses = currentMonthlyTotals.getTotalMonthlyExpenses();
+            BigDecimal monthlyCommission = currentMonthlyTotals.getTotalMonthlyCommission();
+            BigDecimal monthlyClientPayments = currentMonthlyTotals.getTotalMonthlyClientPayments();
+            currentMonthlyTotals.setTotalMonthlyRent(monthlyRent.add(client.getPropertyRent()));
+            currentMonthlyTotals.setTotalMonthlyExpenses(monthlyExpenses.add(client.getPropertyExpenses()));
+            currentMonthlyTotals.setTotalMonthlyCommission(monthlyCommission.add(client.getCommission()));
+            currentMonthlyTotals.setTotalMonthlyClientPayments(monthlyClientPayments.add(client.getClientPayment()));
         }
         currentMonthlyTotals.setCurrentMonth(currentMonth.toString());
         return currentMonthlyTotals;
     } // collectMonthlyTotals
+
 
     /**
      * Gets the monthly totals from the yearly table in the database.
@@ -129,9 +135,11 @@ public class DatabaseConnector {
         PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            monthlyTotalsList.add(new MonthlyTotals(resultSet.getString("current_month"),
-                    resultSet.getBigDecimal("rent"), resultSet.getBigDecimal("expenses"), resultSet.getBigDecimal("commission"),
-                    resultSet.getBigDecimal("client_payment")));
+            monthlyTotalsList.add(new MonthlyTotals(resultSet.getString("month_id"),
+                    resultSet.getBigDecimal("monthly_rent"),
+                    resultSet.getBigDecimal("monthly_expenses"),
+                    resultSet.getBigDecimal("monthly_commission"),
+                    resultSet.getBigDecimal("monthly_client_payment")));
         }
         return monthlyTotalsList;
     } // getMonthlyTotals
@@ -142,13 +150,13 @@ public class DatabaseConnector {
      */
     public static void insertMonthlyTotals(MonthlyTotals currentMonthlyTotals) throws SQLException {
         Connection connection = getDatabaseConnection();
-        PreparedStatement pStatement = connection.prepareStatement("insert into yearly_table (current_month, rent," +
-                " expenses, commission, client_payment)values(?, ?, ?, ?, ?)");
+        PreparedStatement pStatement = connection.prepareStatement("insert into yearly_table (month_id, monthly_rent," +
+                " monthly_expenses, monthly_commission, monthly_client_payment)values(?, ?, ?, ?, ?)");
         pStatement.setString(1, currentMonthlyTotals.getCurrentMonth()); // CHANGE to the current month (multi threading stuff)
         pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyRent());
         pStatement.setBigDecimal(3, currentMonthlyTotals.getTotalMonthlyExpenses());
         pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyCommission());
-        pStatement.setBigDecimal(5, currentMonthlyTotals.getTotalMonthlyPaymentToClients());
+        pStatement.setBigDecimal(5, currentMonthlyTotals.getTotalMonthlyClientPayments());
         pStatement.execute();
     } // insertMonthlyTotals
 
@@ -159,11 +167,11 @@ public class DatabaseConnector {
     public static void updateMonthlyTotals(MonthlyTotals currentMonthlyTotals) throws SQLException {
         Connection connection = getDatabaseConnection();
         PreparedStatement pStatement = connection.prepareStatement("update client.yearly_table set " +
-                "rent = ?, expenses = ?, commission = ?, client_payment = ? where current_month = ?");
+                "monthly_rent = ?, monthly_expenses = ?, monthly_commission = ?, monthly_client_payment = ? where month_id = ?");
         pStatement.setBigDecimal(1, currentMonthlyTotals.getTotalMonthlyRent());
         pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyExpenses());
         pStatement.setBigDecimal(3, currentMonthlyTotals.getTotalMonthlyCommission());
-        pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyPaymentToClients());
+        pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyClientPayments());
         pStatement.setString(5, currentMonthlyTotals.getCurrentMonth());
         int rows = pStatement.executeUpdate();
         System.out.println("Rows impacted: " + rows);
@@ -174,7 +182,7 @@ public class DatabaseConnector {
      * Handles and executes the correct method to deal with the monthly total values in the database.
      * @throws SQLException when no database connection can be established
      */
-    public void handleMonthlyTotals () throws SQLException {
+    public static void handleMonthlyTotals () throws SQLException {
         Month currentMonth = LocalDate.now().getMonth();
         ObservableList<MonthlyTotals> monthlyTotalsFromDatabase = getMonthlyTotals();
         MonthlyTotals currMonthlyTotals = collectMonthlyTotals(currentMonth);
@@ -189,7 +197,7 @@ public class DatabaseConnector {
      * Checks if the current month is in the yearly table database.
      * @returns - true if the current month is in the database; false otherwise
      */
-    private boolean isMonthInDatabase(Month currentMonth, ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+    private static boolean isMonthInDatabase(Month currentMonth, ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
         for (MonthlyTotals monthlyTotals : monthlyTotalsFromDatabase) {
             if (monthlyTotals.getCurrentMonth().equals(currentMonth.toString())) {
                 return true;

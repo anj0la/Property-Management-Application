@@ -84,17 +84,17 @@ public class HomePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Client> clientsFromDatabase;
-        // ObservableList<MonthlyTotals> monthlyTotalsFromDatabase;
+        ObservableList<MonthlyTotals> monthlyTotalsFromDatabase;
         try {
             clientsFromDatabase = DatabaseConnector.getClients();
-            // DatabaseConnector.handleMonthlyTotals();
-            // monthlyTotalsFromDatabase = DatabaseConnector.getMonthlyTotals();
+            DatabaseConnector.handleMonthlyTotals();
+            monthlyTotalsFromDatabase = DatabaseConnector.getMonthlyTotals();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         initializeTable(clientsFromDatabase);
         setUpButtons();
-        // displayMonthlyTotals();
+        displayMonthlyTotals(monthlyTotalsFromDatabase);
     } // initialize
 
     /**
@@ -110,7 +110,7 @@ public class HomePageController implements Initializable {
         rentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyRent"));
         expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyExpenses"));
         commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("commission"));
-        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("paymentToClient"));
+        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("clientPayment"));
         table.setItems(clientsFromDatabase);
     } // initializeTable
 
@@ -137,9 +137,9 @@ public class HomePageController implements Initializable {
             if (monthlyTotals.getCurrentMonth().equals(month.toString())) {
                 MonthlyTotals currentMonthlyTotals = monthlyTotals;
                 totalRentLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
-                totalExpensesLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
-                totalCommissionLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
-                totalClientPaymentLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyRent());
+                totalExpensesLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyExpenses());
+                totalCommissionLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyCommission());
+                totalClientPaymentLabel.setText("$" + currentMonthlyTotals.getTotalMonthlyClientPayments());
             }
         }
     } // displayMonthlyTotals
@@ -164,7 +164,7 @@ public class HomePageController implements Initializable {
                 // newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
             // }
             newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
-            newClient.setPaymentToClient(newClient.getPropertyRent().subtract(newClient.getCommission()));
+            newClient.setClientPayment(newClient.getPropertyRent().subtract(newClient.getCommission()));
             try {
                 DatabaseConnector.addClient(newClient);
                 clientsFromDatabase = DatabaseConnector.getClients();

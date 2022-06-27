@@ -9,15 +9,15 @@ public class MonthlyTotals {
     private BigDecimal totalMonthlyRent;
     private BigDecimal totalMonthlyExpenses;
     private BigDecimal totalMonthlyCommission;
-    private BigDecimal totalMonthlyPaymentToClients;
+    private BigDecimal totalMonthlyClientPayments;
 
     public MonthlyTotals(String currentMonth, BigDecimal totalMonthlyRent, BigDecimal totalMonthlyExpenses,
-                         BigDecimal totalMonthlyCommission, BigDecimal totalMonthlyPaymentToClients) {
+                         BigDecimal totalMonthlyCommission, BigDecimal totalMonthlyClientPayments) {
         this.currentMonth = currentMonth;
         this.totalMonthlyRent = totalMonthlyRent;
         this.totalMonthlyExpenses = totalMonthlyExpenses;
         this.totalMonthlyCommission = totalMonthlyCommission;
-        this.totalMonthlyPaymentToClients = totalMonthlyPaymentToClients;
+        this.totalMonthlyClientPayments = totalMonthlyClientPayments;
     }
 
     public MonthlyTotals() {
@@ -59,12 +59,12 @@ public class MonthlyTotals {
         this.totalMonthlyCommission = totalMonthlyCommission;
     }
 
-    public BigDecimal getTotalMonthlyPaymentToClients() {
-        return totalMonthlyPaymentToClients;
+    public BigDecimal getTotalMonthlyClientPayments() {
+        return totalMonthlyClientPayments;
     }
 
-    public void setTotalMonthlyPaymentToClients(BigDecimal totalMonthlyPaymentToClients) {
-        this.totalMonthlyPaymentToClients = totalMonthlyPaymentToClients;
+    public void setTotalMonthlyClientPayments(BigDecimal totalMonthlyClientPayments) {
+        this.totalMonthlyClientPayments = totalMonthlyClientPayments;
     }
 
 } // class

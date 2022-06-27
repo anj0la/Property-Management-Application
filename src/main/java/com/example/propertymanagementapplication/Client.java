@@ -13,7 +13,7 @@ public class Client {
     private BigDecimal propertyRent;
     private BigDecimal propertyExpenses;
     private BigDecimal commission;
-    private BigDecimal paymentToClient;
+    private BigDecimal clientPayment;
 
     /**
      * Creates a client with the given parameters.
@@ -25,10 +25,10 @@ public class Client {
      * @param rent the rent that the tenant pays each month to live on the property
      * @param expenses the expenses on the property
      * @param commission the commission that the company gets
-     * @param paymentToClient the payment that the client receives
+     * @param clientPayment the payment that the client receives
      */
     public Client(int id, String dateJoined, String clientName, String tenantName, String propertyAddress, BigDecimal rent,
-                  BigDecimal expenses, BigDecimal commission, BigDecimal paymentToClient) {
+                  BigDecimal expenses, BigDecimal commission, BigDecimal clientPayment) {
         this.id = id;
         this.dateJoined = dateJoined;
         this.clientName = clientName;
@@ -37,7 +37,7 @@ public class Client {
         this.propertyRent = rent;
         this.propertyExpenses = expenses;
         this.commission = commission;
-        this.paymentToClient = paymentToClient;
+        this.clientPayment = clientPayment;
     } // Constructor
 
     /**
@@ -175,16 +175,16 @@ public class Client {
      * Gets the payment of the client.
      * @return - the client's payment
      */
-    public BigDecimal getPaymentToClient() {
-        return paymentToClient;
+    public BigDecimal getClientPayment() {
+        return clientPayment;
     } // getPaymentToClient
 
     /**
      * Sets the payment to the client.
-     * @param paymentToClient the value to be paid to the client
+     * @param clientPayment the value to be paid to the client
      */
-    public void setPaymentToClient(BigDecimal paymentToClient) {
-        this.paymentToClient = paymentToClient;
+    public void setClientPayment(BigDecimal clientPayment) {
+        this.clientPayment = clientPayment;
     } // setPaymentToClient
 
 } // class
