@@ -200,7 +200,7 @@
                         </VBox>
                         <VBox prefHeight="125.0" prefWidth="235.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
                            <children>
-                              <Label text="Total Rent for This Month" textFill="#979797">
+                              <Label text="Total Payment for This Month" textFill="#979797">
                                  <VBox.margin>
                                     <Insets left="8.0" top="12.0" />
                                  </VBox.margin>

@@ -155,15 +155,15 @@ public class HomePageController implements Initializable {
         Optional<Client> result = addDialog.showAndWait();
         if (result.isPresent()) {
             Client newClient = result.get();
-            // int numOccur = checkHowManyTimesClientAppears(newClient);
-            // if (numOccur == 1) {
-                // newClient.setCommission(new BigDecimal(0.09).setScale(2, RoundingMode.HALF_EVEN));
-            // } else if (if numOccur >= 2) {
-                // newClient.setCommission(new BigDecimal(0.08).setScale(2, RoundingMode.HALF_EVEN));
-            // } else {
-                // newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
-            // }
-            newClient.setCommission(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
+            int numOccur = checkHowManyTimesClientAppears(newClient);
+            if (numOccur == 1) {
+                newClient.setCommissionValue(new BigDecimal(0.09).setScale(2, RoundingMode.HALF_EVEN));
+            } else if (numOccur >= 2) {
+                newClient.setCommissionValue(new BigDecimal(0.08).setScale(2, RoundingMode.HALF_EVEN));
+            } else {
+                newClient.setCommissionValue(new BigDecimal(0.10).setScale(2, RoundingMode.HALF_EVEN));
+            }
+            newClient.setCommission(newClient.getPropertyRent().multiply(newClient.getCommissionValue()));
             newClient.setClientPayment(newClient.getPropertyRent().subtract(newClient.getCommission()));
             try {
                 DatabaseConnector.addClient(newClient);

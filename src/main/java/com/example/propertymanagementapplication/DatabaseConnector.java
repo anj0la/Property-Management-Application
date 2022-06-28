@@ -92,6 +92,7 @@ public class DatabaseConnector {
         pStatement.setString(4, selectedClient.getPropertyAddress());
         pStatement.setBigDecimal(5, selectedClient.getPropertyRent());
         pStatement.setBigDecimal(6, selectedClient.getPropertyExpenses());
+        selectedClient.setCommission(selectedClient.getPropertyRent().multiply(selectedClient.getCommissionValue()));
         pStatement.setBigDecimal(7, selectedClient.getCommission());
         selectedClient.setClientPayment(selectedClient.getPropertyRent().subtract(selectedClient.getCommission()));
         pStatement.setBigDecimal(8, selectedClient.getClientPayment());

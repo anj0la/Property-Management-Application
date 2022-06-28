@@ -14,6 +14,7 @@ public class Client {
     private BigDecimal propertyExpenses;
     private BigDecimal commission;
     private BigDecimal clientPayment;
+    private BigDecimal commissionValue;
 
     /**
      * Creates a client with the given parameters.
@@ -38,6 +39,7 @@ public class Client {
         this.propertyExpenses = expenses;
         this.commission = commission;
         this.clientPayment = clientPayment;
+        commissionValue = new BigDecimal("0.10").setScale(2, RoundingMode.HALF_EVEN);
     } // Constructor
 
     /**
@@ -186,5 +188,21 @@ public class Client {
     public void setClientPayment(BigDecimal clientPayment) {
         this.clientPayment = clientPayment;
     } // setPaymentToClient
+
+    /**
+     * Gets the current commission value.
+     * @return - the commission value
+     */
+    public BigDecimal getCommissionValue() {
+        return commissionValue;
+    } // getCommissionValue
+
+    /**
+     * Changes the commission value.
+     * @param commissionValue - the new value to be set as the commission value
+     */
+    public void setCommissionValue(BigDecimal commissionValue) {
+        this.commissionValue = commissionValue;
+    } // setCommissionValue
 
 } // class
