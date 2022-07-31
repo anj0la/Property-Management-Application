@@ -107,7 +107,7 @@ public abstract class AbstractDialog extends Dialog<Client> {
     /**
      * Receives the results of the dialog and will either return the client, or null if the finish button was not pressed.
      */
-    public void receiveResults() {
+    private void receiveResults() {
         setResultConverter(new Callback<ButtonType, Client>() {
             @Override
             public Client call(ButtonType buttonType) {

@@ -24,55 +24,38 @@ public class HomePageController implements Initializable {
 
     @FXML
     private Button addButton;
-
     @FXML
     private Button delButton;
-
     @FXML
     private Button editButton;
-
     @FXML
     private ToggleButton settingsButton;
-
     @FXML
     private AnchorPane contentPane;
-
     @FXML
     private TableView<Client> table;
-
     @FXML
     private TableColumn<Client, String> dateJoinedColumn;
-
     @FXML
     private TableColumn<Client, String> clientNameColumn;
-
     @FXML
     private TableColumn<Client, String> tenantNameColumn;
-
     @FXML
     private TableColumn<Client, String> addressColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> rentColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> expensesColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> commissionColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> paymentColumn;
-
     @FXML
     private Label totalRentLabel;
-
     @FXML
     private Label totalExpensesLabel;
-
     @FXML
     private Label totalCommissionLabel;
-
     @FXML
     private Label totalClientPaymentLabel;
 

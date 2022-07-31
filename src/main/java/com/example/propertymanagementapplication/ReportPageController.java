@@ -7,7 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
@@ -21,72 +26,110 @@ public class ReportPageController implements Initializable {
 
     @FXML
     private Button shareButton;
-
     @FXML
     private Button printButton;
-
     @FXML
     private ToggleButton settingsButton;
-
     @FXML
     private AnchorPane contentPane;
-
     @FXML
     private TableView<Client> table;
-
+    @FXML
+    private TableView<MonthlyTotals> yearlyTable;
     @FXML
     private TableColumn<Client, String> dateJoinedColumn;
-
     @FXML
     private TableColumn<Client, String> clientNameColumn;
-
     @FXML
     private TableColumn<Client, String> tenantNameColumn;
-
     @FXML
     private TableColumn<Client, String> addressColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> rentColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> expensesColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> commissionColumn;
-
     @FXML
     private TableColumn<Client, BigDecimal> paymentColumn;
-
+    @FXML
+    private TableColumn<MonthlyTotals, String> monthColumn;
+    @FXML
+    private TableColumn<MonthlyTotals, BigDecimal> totalRentColumn;
+    @FXML
+    private TableColumn<MonthlyTotals, BigDecimal> totalExpensesColumn;
+    @FXML
+    private TableColumn<MonthlyTotals, BigDecimal> totalCommissionColumn;
+    @FXML
+    private TableColumn<MonthlyTotals, BigDecimal> totalPaymentColumn;
     @FXML
     private Button monthlyReportButton;
-
     @FXML
     private Button yearlyReportButton;
+    private FileChooser fileChooser = new FileChooser();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Client> clientsFromDatabase;
+        ObservableList<MonthlyTotals> monthlyTotalsFromDatabase;
         try {
             clientsFromDatabase = DatabaseConnector.getClients();
+            monthlyTotalsFromDatabase = DatabaseConnector.getMonthlyTotals();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("dateJoined"));
-        clientNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
-        tenantNameColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("tenantName"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("propertyAddress"));
-        rentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyRent"));
-        expensesColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("propertyExpenses"));
-        commissionColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("commission"));
-        paymentColumn.setCellValueFactory(new PropertyValueFactory<Client, BigDecimal>("paymentToClient"));
+        initializeTable(clientsFromDatabase);
+        initializeYearlyTable(monthlyTotalsFromDatabase);
+        setUpButtons();
+        String userName = System.getProperty("user.name");
+        if (System.getProperty("os.name").equals("Mac OS X")) {
+            fileChooser.setInitialDirectory(new File("/Users/" + userName + "/Downloads"));
+        }
+        else {
+            fileChooser.setInitialDirectory(new File("C\\" + userName + "\\Downloads"));
+        }
+    } // initialize
+
+    /**
+     * Initializes the report page monthly table, displaying all the current clients from the database.
+     * @param clientsFromDatabase the list of clients from the SQL database
+     */
+    private void initializeTable(ObservableList<Client> clientsFromDatabase) {
+        dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<>("dateJoined"));
+        clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        tenantNameColumn.setCellValueFactory(new PropertyValueFactory<>("tenantName"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
+        rentColumn.setCellValueFactory(new PropertyValueFactory<>("propertyRent"));
+        expensesColumn.setCellValueFactory(new PropertyValueFactory<>("propertyExpenses"));
+        commissionColumn.setCellValueFactory(new PropertyValueFactory<>("commission"));
+        paymentColumn.setCellValueFactory(new PropertyValueFactory<>("clientPayment"));
+        table.setItems(clientsFromDatabase);
+    } // initializeTable
+
+    /**
+     * Initializes the report page yearly table, displaying all the current clients from the database.
+     * @param monthlyTotalsFromDatabase the list of monthly totals from the SQL database
+     */
+    private void initializeYearlyTable(ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+        monthColumn.setCellValueFactory(new PropertyValueFactory<>("currentMonth"));
+        totalRentColumn.setCellValueFactory(new PropertyValueFactory<>("totalMonthlyRent"));
+        totalExpensesColumn.setCellValueFactory(new PropertyValueFactory<>("totalMonthlyExpenses"));
+        totalCommissionColumn.setCellValueFactory(new PropertyValueFactory<>("totalMonthlyCommission"));
+        totalPaymentColumn.setCellValueFactory(new PropertyValueFactory<>("totalMonthlyClientPayments"));
+        yearlyTable.setItems(monthlyTotalsFromDatabase);
+        yearlyTable.setVisible(false);
+    } // initializeYearlyTable
+
+    /**
+     * Sets up the visibility of the save and print buttons.
+     */
+    private void setUpButtons() {
         monthlyReportButton.setDisable(true);
         shareButton.setDisable(true);
         printButton.setDisable(true);
         shareButton.setVisible(false);
         printButton.setVisible(false);
-        table.setItems(clientsFromDatabase);
-    } // initialize
+    } // setUpButtons
 
     @FXML
     private void onToggleButtonClicked(ActionEvent event) {
@@ -104,20 +147,46 @@ public class ReportPageController implements Initializable {
     }  // onToggleButtonClicked
 
     @FXML
-    private void createPDFFromTable() {
-        ObservableList<Client> clientsFromDatabase;
-        try {
-            clientsFromDatabase = DatabaseConnector.getClients();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    } // createPDFFromTable
-    @FXML
     /**
-     * Displays the current share options that the user can select.
+     * Displays the save dialog where the user can select the directory to save their PDF to, and the name of
+     * the PDF.
      */
-    private void displayShareOptions() {
-    } // displayShareOptions
+    private void displaySaveDialog() throws IOException, SQLException {
+        Stage stage = new Stage();
+        fileChooser.setTitle("Save As");
+        fileChooser.setInitialFileName("generated-report");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            saveReport(file);
+        }
+    } // displaySaveDialog
+
+    @FXML
+    private void saveReport(File file) throws IOException, SQLException {
+        PdfCreator pdfCreator = new PdfCreator(file);
+        if (monthlyReportButton.isDisabled()) {
+            pdfCreator.createMonthlyReport();
+        } else { // yearly report button has been selected
+            pdfCreator.createYearlyReport();
+        }
+    } // saveReport
+
+    @FXML
+    private void displayMonthlyTable() {
+        yearlyReportButton.setDisable(false);
+        yearlyTable.setVisible(false);
+        table.setVisible(true);
+        monthlyReportButton.setDisable(true);
+    } // displayMonthlyTable
+
+    @FXML
+    private void displayYearlyTable() {
+        monthlyReportButton.setDisable(false);
+        yearlyTable.setVisible(true);
+        table.setVisible(false);
+        yearlyReportButton.setDisable(true);
+    } // displayMonthlyTable
 
     @FXML
     /**
