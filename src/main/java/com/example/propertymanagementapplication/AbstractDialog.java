@@ -1,5 +1,7 @@
 package com.example.propertymanagementapplication;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -59,6 +61,7 @@ public abstract class AbstractDialog extends Dialog<Client> {
         addressInput = new TextField(client.getPropertyAddress());
         rentInput = new TextField(client.getPropertyRent().toString());
         expensesInput = new TextField(client.getPropertyExpenses().toString());
+        createNumberFields();
         gridPane.add(dateJoined, 0, 1);
         gridPane.add(dateInput, 1, 1);
         gridPane.add(clientName, 0, 2);
@@ -73,6 +76,30 @@ public abstract class AbstractDialog extends Dialog<Client> {
         gridPane.add(expensesInput, 1, 6);
         return gridPane;
     } // createGrid
+
+    /**
+     * Changes the rent and expenses input into number fields that only allow decimal numbers.
+     */
+    private void createNumberFields() {
+        rentInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                    rentInput.setText(oldValue);
+                }
+            }
+        });
+        expensesInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                    rentInput.setText(oldValue);
+                }
+            }
+        });
+    } // changeIntoNumberFields
 
     /**
      * Sets up the dialog.
