@@ -8,9 +8,15 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Creates an abstract dialog class, specifying how the dialog will open/close, and the value it will return.
@@ -25,7 +31,7 @@ public abstract class AbstractDialog extends Dialog<Client> {
     protected final Label address = new Label("Address: ");
     protected final Label rent = new Label("Rent: ");
     protected final Label expenses = new Label("Expenses: ");
-    protected TextField dateInput;
+    protected DatePicker dateInput;
     protected TextField clientNameInput;
     protected TextField tenantNameInput;
     protected TextField addressInput;
@@ -55,13 +61,42 @@ public abstract class AbstractDialog extends Dialog<Client> {
     private GridPane createGrid() {
         GridPane gridPane = new GridPane();
         gridPane.setVgap(3);
-        dateInput = new TextField(client.getDateJoined());
+        if (client.getDateJoined() != "") {
+            LocalDate date = LocalDate.parse(client.getDateJoined());
+            dateInput = new DatePicker(date);
+        }
+        else {
+            dateInput = new DatePicker();
+        }
+
+        dateInput.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            { dateInput.setPromptText(pattern.toLowerCase()); }
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    System.out.println(date);
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
         clientNameInput = new TextField(client.getClientName());
         tenantNameInput = new TextField(client.getTenantName());
         addressInput = new TextField(client.getPropertyAddress());
         rentInput = new TextField(client.getPropertyRent().toString());
         expensesInput = new TextField(client.getPropertyExpenses().toString());
         createNumberFields();
+        //setUpDateInput();
         gridPane.add(dateJoined, 0, 1);
         gridPane.add(dateInput, 1, 1);
         gridPane.add(clientName, 0, 2);
@@ -76,6 +111,22 @@ public abstract class AbstractDialog extends Dialog<Client> {
         gridPane.add(expensesInput, 1, 6);
         return gridPane;
     } // createGrid
+
+//    /**
+//     * Sets the formatting of the date input so that the user adds the date in the correct format (e.g. 2022-08-05).
+//     */
+//    private void setUpDateInput() {
+//        dateInput.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue,
+//                                String newValue) {
+//                if (!newValue.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$")) {
+//                    dateInput.setText(oldValue);
+//                }
+//            }
+//        });
+//    }
+
 
     /**
      * Changes the rent and expenses input into number fields that only allow decimal numbers.
@@ -124,7 +175,7 @@ public abstract class AbstractDialog extends Dialog<Client> {
      * @return - true if the dialog has at least one entry that is empty; false otherwise.
      */
     private boolean invalidDialog() {
-        if (dateInput.getText().isEmpty() || clientNameInput.getText().isEmpty() || tenantNameInput.getText().isEmpty()
+        if (dateInput.getEditor().getText().isEmpty() || clientNameInput.getText().isEmpty() || tenantNameInput.getText().isEmpty()
                 || addressInput.getText().isEmpty() || rentInput.getText().isEmpty() || expensesInput.getText().isEmpty()) {
             return true;
         }
@@ -139,7 +190,7 @@ public abstract class AbstractDialog extends Dialog<Client> {
             @Override
             public Client call(ButtonType buttonType) {
                 if (buttonType == ButtonType.FINISH) {
-                    client.setDateJoined(dateInput.getText());
+                    client.setDateJoined(dateInput.getEditor().getText());
                     client.setClientName(clientNameInput.getText());
                     client.setTenantName(tenantNameInput.getText());
                     client.setPropertyAddress(addressInput.getText());

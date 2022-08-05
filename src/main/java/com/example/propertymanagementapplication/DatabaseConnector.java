@@ -51,6 +51,7 @@ public class DatabaseConnector {
         ObservableList<Client> listOfClients = getClients();
         PreparedStatement pStatement = connection.prepareStatement("insert into regular_table (date_joined, client_name," +
                 " tenant_name, address, rent, expenses, commission, client_payment)values(?, ?, ?, ?, ?, ?, ?, ?)");
+        System.out.println(aClient.getDateJoined());
         pStatement.setString(1, aClient.getDateJoined());
         pStatement.setString(2, aClient.getClientName());
         pStatement.setString(3, aClient.getTenantName());

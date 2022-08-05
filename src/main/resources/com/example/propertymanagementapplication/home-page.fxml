@@ -59,7 +59,7 @@
                               </HBox>
                               <HBox prefHeight="20.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="+50% " textFill="#50c878">
+                                    <Label fx:id="rentDifferenceLabel" text="+50% " textFill="#50c878">
                                        <HBox.margin>
                                           <Insets left="60.0" />
                                        </HBox.margin>
@@ -117,7 +117,7 @@
                               </HBox>
                               <HBox prefHeight="20.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="+50% " textFill="#50c878">
+                                    <Label fx:id="expensesDifferenceLabel" text="+50% " textFill="#50c878">
                                        <HBox.margin>
                                           <Insets left="60.0" />
                                        </HBox.margin>
@@ -175,7 +175,7 @@
                               </HBox>
                               <HBox prefHeight="20.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="+50% " textFill="#50c878">
+                                    <Label fx:id="commissionDifferenceLabel" text="+50% " textFill="#50c878">
                                        <HBox.margin>
                                           <Insets left="60.0" />
                                        </HBox.margin>
@@ -233,7 +233,7 @@
                               </HBox>
                               <HBox prefHeight="20.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="+50% " textFill="#50c878">
+                                    <Label fx:id="clientPaymentDifferenceLabel" text="+50% " textFill="#50c878">
                                        <HBox.margin>
                                           <Insets left="60.0" />
                                        </HBox.margin>

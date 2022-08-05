@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -58,6 +60,14 @@ public class HomePageController implements Initializable {
     private Label totalCommissionLabel;
     @FXML
     private Label totalClientPaymentLabel;
+    @FXML
+    private Label rentDifferenceLabel;
+    @FXML
+    private Label expensesDifferenceLabel;
+    @FXML
+    private Label commissionDifferenceLabel;
+    @FXML
+    private Label clientPaymentDifferenceLabel;
 
     /**
      * Initializes the home page.
@@ -78,6 +88,7 @@ public class HomePageController implements Initializable {
         initializeTable(clientsFromDatabase);
         setUpButtons();
         displayMonthlyTotals(monthlyTotalsFromDatabase);
+        displayMonthDifferences(monthlyTotalsFromDatabase);
     } // initialize
 
     /**
@@ -126,6 +137,90 @@ public class HomePageController implements Initializable {
             }
         }
     } // displayMonthlyTotals
+
+    /**
+     * Displays the month differences.
+     * @param monthlyTotalsFromDatabase monthly totals from the database
+     */
+    @FXML
+    private void displayMonthDifferences(ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+        Month prevMonth = LocalDate.now().getMonth().minus(1);
+        Month currMonth = LocalDate.now().getMonth();
+        MonthlyTotals prevMonthTotals = collectMonthTotals(prevMonth, monthlyTotalsFromDatabase);
+        MonthlyTotals currMonthTotals = collectMonthTotals(currMonth, monthlyTotalsFromDatabase);
+        int[] percentageChanges = calculateMonthDifferences(currMonthTotals, prevMonthTotals);
+        displayMonthDifferencesHelper(percentageChanges[0], rentDifferenceLabel);
+        displayMonthDifferencesHelper(percentageChanges[1], expensesDifferenceLabel);
+        displayMonthDifferencesHelper(percentageChanges[2], commissionDifferenceLabel);
+        displayMonthDifferencesHelper(percentageChanges[3], clientPaymentDifferenceLabel);
+    } // displayMonthDifferences
+
+    /**
+     * Displays the month difference corresponding with the label
+     * @param percentageChange a percentage change from the previous month in the percentageChanges arroy
+     * @param label label to add the difference to
+     */
+    private void displayMonthDifferencesHelper(int percentageChange, Label label) {
+        if (percentageChange < 0) {
+            label.setText(percentageChange + "% ");
+            label.setTextFill(Paint.valueOf(String.valueOf(Color.RED)));
+        }
+        else if (percentageChange > 0) {
+            label.setText("+" + percentageChange + "% ");
+            Color red = Color.RED;
+            label.setTextFill(Paint.valueOf(String.valueOf(Color.web("#50C878"))));
+        }
+        else {
+            label.setText("+" + percentageChange + "% ");
+            label.setTextFill(Paint.valueOf(String.valueOf(Color.LIGHTGREY)));
+        }
+    } // displayMonthDifferencesHelper
+
+    /**
+     * Calculates the percentage changes between the previous and current month.
+     * @param currMonthTotals
+     * @param prevMonthTotals
+     * @return - int array consisting of percentage changes between the previous and current month
+     */
+    private int[] calculateMonthDifferences(MonthlyTotals currMonthTotals, MonthlyTotals prevMonthTotals) {
+        int rentDifference = ((currMonthTotals.getTotalMonthlyRent().subtract(prevMonthTotals.
+                getTotalMonthlyRent())).divide
+                (currMonthTotals.getTotalMonthlyRent(), 2, RoundingMode.HALF_UP)).
+                multiply(new BigDecimal(100.00)).intValue();
+        int expensesDifference = ((currMonthTotals.getTotalMonthlyExpenses().subtract(prevMonthTotals.
+                getTotalMonthlyExpenses())).divide
+                (currMonthTotals.getTotalMonthlyExpenses(), 2, RoundingMode.HALF_UP)).
+                multiply(new BigDecimal(100.00)).intValue();
+        int commissionDifference = ((currMonthTotals.getTotalMonthlyCommission().subtract(prevMonthTotals.
+                getTotalMonthlyCommission())).divide
+                (currMonthTotals.getTotalMonthlyCommission(), 2, RoundingMode.HALF_UP)).
+                multiply(new BigDecimal(100.00)).intValue();
+        int clientPaymentDifference = ((currMonthTotals.getTotalMonthlyClientPayments().subtract(prevMonthTotals.
+                getTotalMonthlyClientPayments())).divide
+                (currMonthTotals.getTotalMonthlyClientPayments(),2, RoundingMode.HALF_UP)).
+                multiply(new BigDecimal(100.00)).intValue();
+        return new int[]{rentDifference, expensesDifference, commissionDifference, clientPaymentDifference};
+    }
+
+    @FXML
+    /**
+     * Collects the total rent, expenses, commission and client payments from the specified month
+     * @param month the month in the database
+     * @param monthlyTotalsFromDatabase all the monthly totals including the unique months in the database
+     * @return the monthly totals for the specified month
+     */
+    private MonthlyTotals collectMonthTotals(Month month, ObservableList<MonthlyTotals> monthlyTotalsFromDatabase) {
+        MonthlyTotals monthTotals = new MonthlyTotals();
+        for (MonthlyTotals monthlyTotals : monthlyTotalsFromDatabase) {
+            if (monthlyTotals.getCurrentMonth().equals(month.toString())) {
+                monthTotals.setTotalMonthlyRent(monthlyTotals.getTotalMonthlyRent());
+                monthTotals.setTotalMonthlyExpenses(monthlyTotals.getTotalMonthlyExpenses());
+                monthTotals.setTotalMonthlyCommission(monthlyTotals.getTotalMonthlyCommission());
+                monthTotals.setTotalMonthlyClientPayments(monthlyTotals.getTotalMonthlyClientPayments());
+            }
+        }
+        return monthTotals;
+    } // collectMonthTotals
 
     /**
      * Adds a client to the table.
