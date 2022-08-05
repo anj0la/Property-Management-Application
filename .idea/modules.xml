@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Property Management Application.iml" filepath="$PROJECT_DIR$/Property Management Application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PropertyManagementApplication.iml" filepath="$PROJECT_DIR$/PropertyManagementApplication.iml" />
     </modules>
   </component>
 </project>

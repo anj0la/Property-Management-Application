@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.propertymanagementapplication.SettingsPageController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="720.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertymanagementapplication.SettingsPageController">
+   <children>
+      <Label alignment="CENTER" layoutX="138.0" layoutY="183.0" text="Settings" textFill="#6b6b6b" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="16.0">
+         <font>
+            <Font name="Roboto Medium" size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="45.0" layoutY="77.0" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="64.0">
+         <children>
+            <Label alignment="CENTER" text="Under Construction" textFill="#6b6b6b">
+               <font>
+                  <Font name="Roboto Medium" size="24.0" />
+               </font>
+               <padding>
+                  <Insets left="400.0" top="280.0" />
+               </padding>
+            </Label>
+         </children></VBox>
+   </children>
 </AnchorPane>

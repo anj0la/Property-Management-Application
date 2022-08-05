@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
+/**
+ *  This class starts, initializes and shows the application.
+ */
 public class MainApplication extends Application {
 
     public static SidebarMenuController mainController = new SidebarMenuController();
@@ -18,6 +21,7 @@ public class MainApplication extends Application {
         mainController = fxmlLoader.getController();
         mainController.initializeApplication();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     } // start
 

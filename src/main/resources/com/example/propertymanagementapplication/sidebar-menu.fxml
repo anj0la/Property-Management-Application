@@ -2,46 +2,57 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertymanagementapplication.SidebarMenuController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.propertymanagementapplication.SidebarMenuController">
    <children>
-      <VBox fx:id="sideNavigationBar" prefHeight="200.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: white;">
+      <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0)dropshadow(gaussian, lightgrey, 5, 0.1, 0.0, 5.0);">
          <children>
-            <MFXButton fx:id="homeButton" onAction="#onHomeButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Home">
+            <Label text="Property Management">
                <font>
-                  <Font size="20.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="reportButton" onAction="#onReportButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Report">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="archiveButton" onAction="#onArchiveButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Archive">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="settingsButton" onAction="#onSettingsButtonClick" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F3F3F3;" text="Settings">
-               <font>
-                  <Font size="20.0" />
+                  <Font name="Roboto Black" size="20.0" />
                </font>
                <VBox.margin>
-                  <Insets top="350.0" />
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label text="_____________________________" />
+            <MFXButton fx:id="homeButton" onAction="#onHomeButtonClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Dashboard">
+               <font>
+                  <Font name="Roboto" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="reportButton" onAction="#onReportButtonClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Generate Report">
+               <font>
+                  <Font name="Roboto" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="settingsButton" onAction="#onSettingsButtonClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Settings">
+               <font>
+                  <Font name="Roboto" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="420.0" />
                </VBox.margin>
             </MFXButton>
          </children>
          <HBox.margin>
-            <Insets />
+            <Insets bottom="10.0" left="10.0" top="10.0" />
          </HBox.margin>
          <padding>
-            <Insets left="25.0" top="120.0" />
+            <Insets left="20.0" top="30.0" />
          </padding>
       </VBox>
-      <AnchorPane fx:id="currentPage" prefHeight="200.0" prefWidth="1080.0" />
+      <AnchorPane fx:id="currentPage" prefHeight="200.0" prefWidth="1030.0" />
    </children>
 </HBox>
