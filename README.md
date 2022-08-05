@@ -15,4 +15,6 @@ This project was completed from May 2022 - August 2022 to gain more experience w
 - Complete the base application - Completed August 4th, 2022 ✔️
 - Deploy the application - August 9th, 2022 
 
+### Future plans
+
 The repository will continue to be updated, as the application will have updates until it becomes a full-fledged management application, as it does the bare minimum currently.
