@@ -3,9 +3,11 @@ package com.example.propertymanagementapplication;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -34,6 +36,8 @@ public class HomePageController implements Initializable {
     private ToggleButton settingsButton;
     @FXML
     private AnchorPane contentPane;
+    @FXML
+    private VBox clientListPane;
     @FXML
     private TableView<Client> table;
     @FXML
@@ -89,6 +93,7 @@ public class HomePageController implements Initializable {
         setUpButtons();
         displayMonthlyTotals(monthlyTotalsFromDatabase);
         displayMonthDifferences(monthlyTotalsFromDatabase);
+        displayListOfClients(clientsFromDatabase);
     } // initialize
 
     /**
@@ -200,7 +205,20 @@ public class HomePageController implements Initializable {
                 (currMonthTotals.getTotalMonthlyClientPayments(),2, RoundingMode.HALF_UP)).
                 multiply(new BigDecimal(100.00)).intValue();
         return new int[]{rentDifference, expensesDifference, commissionDifference, clientPaymentDifference};
-    }
+    } // calculateMonthDifferences
+
+    @FXML
+    /**
+     * Displays the list of clients from the database.
+     */
+    private void displayListOfClients(ObservableList<Client> clientsFromDatabase) {
+        for (Client client : clientsFromDatabase) {
+            Label clientName = new Label(client.getClientName());
+            VBox.setMargin(clientName, new Insets(0, 0, 0, 8));
+            clientListPane.getChildren().add(clientName);
+        }
+    } // displayListOfClients
+
 
     @FXML
     /**
