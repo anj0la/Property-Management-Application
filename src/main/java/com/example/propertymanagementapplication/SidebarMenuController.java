@@ -1,8 +1,8 @@
 package com.example.propertymanagementapplication;
 
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,13 +24,13 @@ public class SidebarMenuController {
     private VBox sideNavigationBar;
 
     @FXML
-    private MFXButton homeButton;
+    private Button homeButton;
 
     @FXML
-    private MFXButton reportButton;
+    private Button reportButton;
 
     @FXML
-    private MFXButton settingsButton;
+    private Button settingsButton;
 
     /**
      * Initializes the application by setting the "default" page to be the home page when the

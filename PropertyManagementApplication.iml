@@ -53,8 +53,8 @@
     <orderEntry type="library" name="Maven: com.itextpdf:sign:7.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:styled-xml-parser:7.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:svg:7.2.2" level="project" />
-    <orderEntry type="library" name="Maven: io.github.palexdev:materialfx:11.13.5" level="project" />
-    <orderEntry type="library" name="Maven: io.github.palexdev:virtualizedfx:11.2.6" level="project" />
+    <orderEntry type="library" exported="" name="Maven: io.github.palexdev:materialfx:11.13.5" level="project" />
+    <orderEntry type="library" exported="" name="Maven: io.github.palexdev:virtualizedfx:11.2.6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:18-ea+6" level="project" />
@@ -69,7 +69,6 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:mac:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" level="project" />
-    <orderEntry type="library" name="Maven: net.synedra:validatorfx:0.1.13" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" level="project" />
