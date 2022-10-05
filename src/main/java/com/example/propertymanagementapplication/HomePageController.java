@@ -188,22 +188,48 @@ public class HomePageController implements Initializable {
      * @return - int array consisting of percentage changes between the previous and current month
      */
     private int[] calculateMonthDifferences(MonthlyTotals currMonthTotals, MonthlyTotals prevMonthTotals) {
-        int rentDifference = ((currMonthTotals.getTotalMonthlyRent().subtract(prevMonthTotals.
-                getTotalMonthlyRent())).divide
-                (currMonthTotals.getTotalMonthlyRent(), 2, RoundingMode.HALF_UP)).
-                multiply(new BigDecimal(100.00)).intValue();
-        int expensesDifference = ((currMonthTotals.getTotalMonthlyExpenses().subtract(prevMonthTotals.
-                getTotalMonthlyExpenses())).divide
-                (currMonthTotals.getTotalMonthlyExpenses(), 2, RoundingMode.HALF_UP)).
-                multiply(new BigDecimal(100.00)).intValue();
-        int commissionDifference = ((currMonthTotals.getTotalMonthlyCommission().subtract(prevMonthTotals.
-                getTotalMonthlyCommission())).divide
-                (currMonthTotals.getTotalMonthlyCommission(), 2, RoundingMode.HALF_UP)).
-                multiply(new BigDecimal(100.00)).intValue();
-        int clientPaymentDifference = ((currMonthTotals.getTotalMonthlyClientPayments().subtract(prevMonthTotals.
-                getTotalMonthlyClientPayments())).divide
-                (currMonthTotals.getTotalMonthlyClientPayments(),2, RoundingMode.HALF_UP)).
-                multiply(new BigDecimal(100.00)).intValue();
+        BigDecimal currTotalMonthlyRent = currMonthTotals.getTotalMonthlyRent().stripTrailingZeros();
+        BigDecimal prevTotalMonthlyRent = prevMonthTotals.getTotalMonthlyRent();
+        BigDecimal currTotalMonthlyExpenses = currMonthTotals.getTotalMonthlyExpenses().stripTrailingZeros();
+        BigDecimal prevTotalMonthlyExpenses = prevMonthTotals.getTotalMonthlyExpenses();
+        BigDecimal currTotalMonthlyCommission = currMonthTotals.getTotalMonthlyCommission();
+        BigDecimal prevTotalMonthlyCommission = prevMonthTotals.getTotalMonthlyCommission();
+        BigDecimal currTotalMonthlyClientPayment = currMonthTotals.getTotalMonthlyClientPayments();
+        BigDecimal prevTotalMonthlyClientPayment = prevMonthTotals.getTotalMonthlyClientPayments();
+        int rentDifference = 0;
+        int expensesDifference = 0;
+        int commissionDifference = 0;
+        int clientPaymentDifference = 0;
+        System.out.println(currTotalMonthlyRent.stripTrailingZeros());
+        System.out.println(currTotalMonthlyRent.equals(BigDecimal.ZERO));
+        System.out.println(currTotalMonthlyExpenses);
+        System.out.println(currTotalMonthlyExpenses.equals(BigDecimal.ZERO));
+        System.out.println(currTotalMonthlyCommission);
+        System.out.println(currTotalMonthlyCommission.equals(BigDecimal.ZERO));
+        System.out.println(currTotalMonthlyClientPayment);
+        System.out.println(currTotalMonthlyClientPayment.equals(BigDecimal.ZERO));
+
+        if (currTotalMonthlyRent.equals(BigDecimal.ZERO) && currTotalMonthlyExpenses.equals(BigDecimal.ZERO) &&
+                currTotalMonthlyCommission.equals(BigDecimal.ZERO) && currTotalMonthlyClientPayment.equals(BigDecimal.ZERO)) {
+            // do nothing
+        } else {
+            rentDifference = ((currMonthTotals.getTotalMonthlyRent().subtract(prevMonthTotals.
+                    getTotalMonthlyRent())).divide
+                    (currMonthTotals.getTotalMonthlyRent(), 2, RoundingMode.HALF_UP)).
+                    multiply(new BigDecimal(100.00)).intValue();
+            expensesDifference = ((currMonthTotals.getTotalMonthlyExpenses().subtract(prevMonthTotals.
+                    getTotalMonthlyExpenses())).divide
+                    (currMonthTotals.getTotalMonthlyExpenses(), 2, RoundingMode.HALF_UP)).
+                    multiply(new BigDecimal(100.00)).intValue();
+            commissionDifference = ((currMonthTotals.getTotalMonthlyCommission().subtract(prevMonthTotals.
+                    getTotalMonthlyCommission())).divide
+                    (currMonthTotals.getTotalMonthlyCommission(), 2, RoundingMode.HALF_UP)).
+                    multiply(new BigDecimal(100.00)).intValue();
+            clientPaymentDifference = ((currMonthTotals.getTotalMonthlyClientPayments().subtract(prevMonthTotals.
+                    getTotalMonthlyClientPayments())).divide
+                    (currMonthTotals.getTotalMonthlyClientPayments(),2, RoundingMode.HALF_UP)).
+                    multiply(new BigDecimal(100.00)).intValue();
+        }
         return new int[]{rentDifference, expensesDifference, commissionDifference, clientPaymentDifference};
     } // calculateMonthDifferences
 

@@ -16,8 +16,7 @@ public class DatabaseConnector {
      * @throws SQLException when no database connection can be established
      */
     public static Connection getDatabaseConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/client",
-                "root", "");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/anjola/Desktop/client.db");
         return connection;
     } // getDatabaseConnection
 
@@ -29,7 +28,7 @@ public class DatabaseConnector {
     public static ObservableList<Client> getClients() throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<Client> listOfClients = FXCollections.observableArrayList();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.regular_table");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from regular_table");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             listOfClients.add(new Client(resultSet.getInt("client_id") ,resultSet.getString("date_joined"),
@@ -72,7 +71,7 @@ public class DatabaseConnector {
         Connection connection = getDatabaseConnection();
         ObservableList<Client> listOfClients = getClients();
         Client currentClient = listOfClients.get(selectedIndex);
-        PreparedStatement pStatement = connection.prepareStatement("delete from client.regular_table where client_id = ?");
+        PreparedStatement pStatement = connection.prepareStatement("delete from regular_table where client_id = ?");
         pStatement.setInt(1, currentClient.getId());
         pStatement.execute();
     } // removeClient
@@ -84,7 +83,7 @@ public class DatabaseConnector {
      */
     public static void updateClient(Client selectedClient) throws SQLException {
         Connection connection = getDatabaseConnection();
-        PreparedStatement pStatement = connection.prepareStatement("update client.regular_table set " +
+        PreparedStatement pStatement = connection.prepareStatement("update regular_table set " +
                 "date_joined = ?, client_name = ?, tenant_name = ?, address = ?, rent = ?, expenses = ?, " +
                 "commission = ?, client_payment = ? where client_id = ?");
         pStatement.setString(1, selectedClient.getDateJoined());
@@ -134,7 +133,7 @@ public class DatabaseConnector {
     public static ObservableList<MonthlyTotals> getMonthlyTotals() throws SQLException {
         Connection connection = getDatabaseConnection();
         ObservableList<MonthlyTotals> monthlyTotalsList = FXCollections.observableArrayList();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from yearly_table");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             monthlyTotalsList.add(new MonthlyTotals(resultSet.getString("month_id"),
@@ -168,7 +167,7 @@ public class DatabaseConnector {
      */
     public static void updateMonthlyTotals(MonthlyTotals currentMonthlyTotals) throws SQLException {
         Connection connection = getDatabaseConnection();
-        PreparedStatement pStatement = connection.prepareStatement("update client.yearly_table set " +
+        PreparedStatement pStatement = connection.prepareStatement("update yearly_table set " +
                 "monthly_rent = ?, monthly_expenses = ?, monthly_commission = ?, monthly_client_payment = ? where month_id = ?");
         pStatement.setBigDecimal(1, currentMonthlyTotals.getTotalMonthlyRent());
         pStatement.setBigDecimal(2, currentMonthlyTotals.getTotalMonthlyExpenses());
