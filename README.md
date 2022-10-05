@@ -13,7 +13,7 @@ This project was completed from May 2022 - August 2022 to gain more experience w
 - Construct the database being used to store the data used in the application - Completed June 12th, 2022 ✔️
 - Have a minimum viable product - Completed July 30th, 2022 ✔️
 - Complete the base application - Completed August 4th, 2022 ✔️
-- Deploy the application - August 9th, 2022 
+- Deploy the application - Octobr 7th, 2022 
 
 ### Future plans
 
