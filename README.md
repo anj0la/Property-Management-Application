@@ -9,13 +9,13 @@ This project was completed from May 2022 - August 2022 to gain more experience w
 ### Some images of the project
 
 Dashboard Page
-<img width="1278" alt="=Desktop Page" src="https://user-images.githubusercontent.com/92893114/194615929-1aa55dba-613e-4e63-872f-7c21b2c113bb.png">
+<img width="50%" alt="=Desktop Page" src="https://user-images.githubusercontent.com/92893114/194615929-1aa55dba-613e-4e63-872f-7c21b2c113bb.png">
 
 Report Page
-<img width="1275" alt="Report Page" src="https://user-images.githubusercontent.com/92893114/194616493-7b5548ea-be99-4510-beb4-c31fc1ab7558.png">
+<img width="50%" alt="Report Page" src="https://user-images.githubusercontent.com/92893114/194616493-7b5548ea-be99-4510-beb4-c31fc1ab7558.png">
 
 Add Dialog
-<img width="1272" alt="Add Dialog" src="https://user-images.githubusercontent.com/92893114/194616511-c677058e-e352-4445-8698-5ae04a38ef8c.png">
+<img width="50%" alt="Add Dialog" src="https://user-images.githubusercontent.com/92893114/194616511-c677058e-e352-4445-8698-5ae04a38ef8c.png">
 
 ## Short demonstration of the project
 
