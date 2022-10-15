@@ -14,7 +14,7 @@ This project was completed from May 2022 - August 2022 to gain more experience w
 - Have a minimum viable product - Completed July 30th, 2022 ✔️
 - Complete the base application - Completed August 4th, 2022 ✔️
 - Changed databases and finished the application - Octobr 7th, 2022 ✔️
-- Create a .exe and .dmg file - October 8th, 2022
+- Create a .exe and .dmg file - October 31st, 2022
 
 ### Some images of the project
 
