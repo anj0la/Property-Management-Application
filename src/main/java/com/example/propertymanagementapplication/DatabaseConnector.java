@@ -16,7 +16,7 @@ public class DatabaseConnector {
      * @throws SQLException when no database connection can be established
      */
     public static Connection getDatabaseConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:/Users/anjola/Desktop/client.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/main/database/client.db");
         return connection;
     } // getDatabaseConnection
 

@@ -137,7 +137,7 @@ public class PdfCreator {
      */
     private void createMonthlyTable(Table table) throws SQLException {
         Connection connection = DatabaseConnector.getDatabaseConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.regular_table");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from regular_table");
         ResultSet resultSet = preparedStatement.executeQuery();
         createMonthlyReportTableHeader(table);
         while (resultSet.next()) {
@@ -236,7 +236,7 @@ public class PdfCreator {
      */
     private void createYearlyTable(Table table) throws SQLException {
         Connection connection = DatabaseConnector.getDatabaseConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from client.yearly_table");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from yearly_table");
         ResultSet resultSet = preparedStatement.executeQuery();
         createYearlyReportTableHeader(table);
         while (resultSet.next()) {
