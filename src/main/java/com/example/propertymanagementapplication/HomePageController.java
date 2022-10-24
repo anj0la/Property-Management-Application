@@ -189,13 +189,9 @@ public class HomePageController implements Initializable {
      */
     private int[] calculateMonthDifferences(MonthlyTotals currMonthTotals, MonthlyTotals prevMonthTotals) {
         BigDecimal currTotalMonthlyRent = currMonthTotals.getTotalMonthlyRent().stripTrailingZeros();
-        BigDecimal prevTotalMonthlyRent = prevMonthTotals.getTotalMonthlyRent();
         BigDecimal currTotalMonthlyExpenses = currMonthTotals.getTotalMonthlyExpenses().stripTrailingZeros();
-        BigDecimal prevTotalMonthlyExpenses = prevMonthTotals.getTotalMonthlyExpenses();
         BigDecimal currTotalMonthlyCommission = currMonthTotals.getTotalMonthlyCommission();
-        BigDecimal prevTotalMonthlyCommission = prevMonthTotals.getTotalMonthlyCommission();
         BigDecimal currTotalMonthlyClientPayment = currMonthTotals.getTotalMonthlyClientPayments();
-        BigDecimal prevTotalMonthlyClientPayment = prevMonthTotals.getTotalMonthlyClientPayments();
         int rentDifference = 0;
         int expensesDifference = 0;
         int commissionDifference = 0;

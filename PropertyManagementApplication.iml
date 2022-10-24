@@ -38,6 +38,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="slf4j.simple" level="project" />
+    <orderEntry type="library" name="sql" level="project" />
+    <orderEntry type="library" name="xerial.sqlite.jdbc" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:barcodes:7.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:font-asian:7.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:forms:7.2.2" level="project" />
@@ -66,7 +68,7 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:mac:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
-    <orderEntry type="library" name="sql" level="project" />
+    <orderEntry type="library" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" level="project" />
@@ -79,6 +81,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.36" level="project" />
-    <orderEntry type="library" name="xerial.sqlite.jdbc" level="project" />
   </component>
 </module>
