@@ -27,11 +27,7 @@ public class ReportPageController implements Initializable {
     @FXML
     private Button shareButton;
     @FXML
-    private Button printButton;
-    @FXML
     private ToggleButton settingsButton;
-    @FXML
-    private AnchorPane contentPane;
     @FXML
     private TableView<Client> table;
     @FXML
@@ -126,23 +122,22 @@ public class ReportPageController implements Initializable {
     private void setUpButtons() {
         monthlyReportButton.setDisable(true);
         shareButton.setDisable(true);
-        printButton.setDisable(true);
         shareButton.setVisible(false);
-        printButton.setVisible(false);
     } // setUpButtons
 
+    /**
+     * Handles the toggling of the settings button. If selected, it displays the following share button, otherwise,
+     * the share button is hidden.
+     * @param event the toggle event
+     */
     @FXML
     private void onToggleButtonClicked(ActionEvent event) {
         if (settingsButton.isSelected()) {
             shareButton.setDisable(false);
-            printButton.setDisable(false);
             shareButton.setVisible(true);
-            printButton.setVisible(true);
         } else {
             shareButton.setDisable(true);
-            printButton.setDisable(true);
             shareButton.setVisible(false);
-            printButton.setVisible(false);
         }
     }  // onToggleButtonClicked
 
@@ -162,6 +157,12 @@ public class ReportPageController implements Initializable {
         }
     } // displaySaveDialog
 
+    /**
+     * Saves the monthly report into a PDF file.
+     * @param file the file to create the PDF
+     * @throws IOException if the file cannot be created
+     * @throws SQLException if the connection to the database does not work
+     */
     @FXML
     private void saveReport(File file) throws IOException, SQLException {
         PdfCreator pdfCreator = new PdfCreator(file);
@@ -172,6 +173,9 @@ public class ReportPageController implements Initializable {
         }
     } // saveReport
 
+    /**
+     * Displays the monthly table.
+     */
     @FXML
     private void displayMonthlyTable() {
         yearlyReportButton.setDisable(false);
@@ -180,6 +184,9 @@ public class ReportPageController implements Initializable {
         monthlyReportButton.setDisable(true);
     } // displayMonthlyTable
 
+    /**
+     * Displays the yearly table.
+     */
     @FXML
     private void displayYearlyTable() {
         monthlyReportButton.setDisable(false);
@@ -188,10 +195,4 @@ public class ReportPageController implements Initializable {
         yearlyReportButton.setDisable(true);
     } // displayMonthlyTable
 
-    @FXML
-    /**
-     * Creates a PDF that the user is able to print out.
-     */
-    private void displayPrintOption() {
-    } // displayPrintOption
 } // class

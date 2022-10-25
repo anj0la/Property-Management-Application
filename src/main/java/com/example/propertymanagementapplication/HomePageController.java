@@ -196,15 +196,6 @@ public class HomePageController implements Initializable {
         int expensesDifference = 0;
         int commissionDifference = 0;
         int clientPaymentDifference = 0;
-        System.out.println(currTotalMonthlyRent.stripTrailingZeros());
-        System.out.println(currTotalMonthlyRent.equals(BigDecimal.ZERO));
-        System.out.println(currTotalMonthlyExpenses);
-        System.out.println(currTotalMonthlyExpenses.equals(BigDecimal.ZERO));
-        System.out.println(currTotalMonthlyCommission);
-        System.out.println(currTotalMonthlyCommission.equals(BigDecimal.ZERO));
-        System.out.println(currTotalMonthlyClientPayment);
-        System.out.println(currTotalMonthlyClientPayment.equals(BigDecimal.ZERO));
-
         if (currTotalMonthlyRent.equals(BigDecimal.ZERO) && currTotalMonthlyExpenses.equals(BigDecimal.ZERO) &&
                 currTotalMonthlyCommission.equals(BigDecimal.ZERO) && currTotalMonthlyClientPayment.equals(BigDecimal.ZERO)) {
             // do nothing
@@ -308,7 +299,6 @@ public class HomePageController implements Initializable {
             displayErrorDialog();
             return;
         } else {
-            System.out.println(selectedIndex);
             try {
                 DatabaseConnector.removeClient(selectedIndex);
                 clientsFromDatabase = DatabaseConnector.getClients();

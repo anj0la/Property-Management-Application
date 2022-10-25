@@ -13,22 +13,16 @@ import java.io.IOException;
  * This class contains the methods needed to navigate, initialize, and load information into the application.
  */
 public class SidebarMenuController {
-
     @FXML
     private HBox root;
-
     @FXML
     private AnchorPane currentPage;
-
     @FXML
     private VBox sideNavigationBar;
-
     @FXML
     private Button homeButton;
-
     @FXML
     private Button reportButton;
-
     @FXML
     private Button settingsButton;
 
@@ -56,7 +50,6 @@ public class SidebarMenuController {
         changeCurrentPage("home-page.fxml");
         homeButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         homeButton.setDisable(true);
-        System.out.println("The home button was clicked!");
         // might need to reload information from the database if the application
         // "restarts" when changing the current page (resets to the default layout)
     } // onHomeButtonClick
@@ -71,7 +64,6 @@ public class SidebarMenuController {
         changeCurrentPage("report-page.fxml");
         reportButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         reportButton.setDisable(true);
-        System.out.println("The report button was clicked!");
     } // onReportButtonClick
 
     /**
@@ -84,7 +76,6 @@ public class SidebarMenuController {
         changeCurrentPage("settings-page.fxml");
         settingsButton.setStyle("-fx-background-color: lightgrey;" + "-fx-alignment: CENTER_LEFT");
         settingsButton.setDisable(true);
-        System.out.println("The settings button was clicked!");
     } // onSettingsButtonClick
 
     /**

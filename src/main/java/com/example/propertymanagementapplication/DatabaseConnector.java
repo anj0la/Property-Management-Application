@@ -50,7 +50,6 @@ public class DatabaseConnector {
         ObservableList<Client> listOfClients = getClients();
         PreparedStatement pStatement = connection.prepareStatement("insert into regular_table (date_joined, client_name," +
                 " tenant_name, address, rent, expenses, commission, client_payment)values(?, ?, ?, ?, ?, ?, ?, ?)");
-        System.out.println(aClient.getDateJoined());
         pStatement.setString(1, aClient.getDateJoined());
         pStatement.setString(2, aClient.getClientName());
         pStatement.setString(3, aClient.getTenantName());
@@ -98,7 +97,6 @@ public class DatabaseConnector {
         pStatement.setBigDecimal(8, selectedClient.getClientPayment());
         pStatement.setInt(9, selectedClient.getId());
         int rows = pStatement.executeUpdate();
-        System.out.println("Rows impacted: " + rows);
         connection.close();
     } // updateClient
 
@@ -175,7 +173,6 @@ public class DatabaseConnector {
         pStatement.setBigDecimal(4, currentMonthlyTotals.getTotalMonthlyClientPayments());
         pStatement.setString(5, currentMonthlyTotals.getCurrentMonth());
         int rows = pStatement.executeUpdate();
-        System.out.println("Rows impacted: " + rows);
         connection.close();
     } // updateMonthlyTotals
 

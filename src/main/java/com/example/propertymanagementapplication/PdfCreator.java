@@ -83,19 +83,19 @@ public class PdfCreator {
         PdfFont headerFont2 = PdfFontFactory.createFont(StandardFonts.COURIER_OBLIQUE);
         Paragraph title = new Paragraph("Monthly Operations Report");
         header.addCell(new Cell().add(title).setFont(headerFont).setFontSize(22f).setBorder(Border.NO_BORDER));
-        header.addCell(new Cell().add(new Paragraph("Folbase Management Incorporated").setFontSize(10f).
+        header.addCell(new Cell().add(new Paragraph("Company Name Goes Here").setFontSize(10f).
                 setFont(headerFont2)).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Date: " + LocalDate.now())).setBorder(Border.NO_BORDER).
                 setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("117 Lougheed Drive").setFont(headerFont2).setFontSize(10f)).
+        header.addCell(new Cell().add(new Paragraph("Some Address").setFont(headerFont2).setFontSize(10f)).
                 setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Name: _________________________")).setBorder(Border.NO_BORDER).
                 setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("Fort McMurray, AB T9K 2N7").setFont(headerFont2)).
+        header.addCell(new Cell().add(new Paragraph("City, Province Postal Code").setFont(headerFont2)).
                 setFontSize(10f).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Email: ________________________")).
                 setBorder(Border.NO_BORDER).setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("780-838-8892")).setBorder(Border.NO_BORDER).
+        header.addCell(new Cell().add(new Paragraph("XXX-XXX-XXXX")).setBorder(Border.NO_BORDER).
                 setFont(headerFont2).setFontSize(10f).setTextAlignment(TextAlignment.RIGHT));
     } // createMonthlyReportHeader
 
@@ -191,19 +191,19 @@ public class PdfCreator {
         PdfFont headerFont2 = PdfFontFactory.createFont(StandardFonts.COURIER_OBLIQUE);
         header.addCell(new Cell().add(new Paragraph("Yearly Operations Report")).
                 setFont(headerFont).setFontSize(22f).setBorder(Border.NO_BORDER));
-        header.addCell(new Cell().add(new Paragraph("Folbase Management Incorporated").setFontSize(10f).
+        header.addCell(new Cell().add(new Paragraph("Company Name Goes Here").setFontSize(10f).
                 setFont(headerFont2)).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Date: " + LocalDate.now())).setBorder(Border.NO_BORDER).
                 setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("117 Lougheed Drive").setFont(headerFont2).setFontSize(10f)).
+        header.addCell(new Cell().add(new Paragraph("Some Address").setFont(headerFont2).setFontSize(10f)).
                 setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Name: _________________________")).setBorder(Border.NO_BORDER).
                 setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("Fort McMurray, AB T9K 2N7").setFont(headerFont2)).
+        header.addCell(new Cell().add(new Paragraph("City, Province Postal Code").setFont(headerFont2)).
                 setFontSize(10f).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
         header.addCell(new Cell().add(new Paragraph("Email: ________________________")).
                 setBorder(Border.NO_BORDER).setFont(headerFont2));
-        header.addCell(new Cell().add(new Paragraph("780-838-8892")).setBorder(Border.NO_BORDER).
+        header.addCell(new Cell().add(new Paragraph("XXX-XXX-XXXX")).setBorder(Border.NO_BORDER).
                 setFont(headerFont2).setFontSize(10f).setTextAlignment(TextAlignment.RIGHT));
     } // createYearlyReportHeader
 

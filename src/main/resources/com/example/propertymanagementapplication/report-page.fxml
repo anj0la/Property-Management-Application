@@ -53,7 +53,6 @@
          </font>
       </Label>
       <ToggleButton fx:id="settingsButton" layoutX="591.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/toggle-button.css" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="6.0" />
-      <Button fx:id="printButton" layoutX="915.0" layoutY="8.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/print-button.css" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="6.0" />
       <Button fx:id="shareButton" layoutX="925.0" layoutY="18.0" mnemonicParsing="false" onAction="#displaySaveDialog" prefHeight="30.0" prefWidth="30.0" stylesheets="@../../../stylesheets/save-button.css" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>
